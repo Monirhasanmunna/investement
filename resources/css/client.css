@@ -1,0 +1,70 @@
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Styling for Swiper wrapper */
+.mySwiper {
+    width: 100%;
+    /*padding: 20px 0;*/
+}
+
+/* Styling individual Swiper slides */
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border-radius: 10px;*/
+    /*transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+}
+
+/* Centered active slide effect (bigger) */
+/*.swiper-slide-active {*/
+/*    transform: scale(1.2);*/
+/*    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);*/
+/*}*/
+
+/* Styling the image inside each Swiper slide */
+.swiper-slide img {
+    /*border-radius: 12px;*/
+    transition: transform 0.3s ease;
+}
+
+/* Image hover effect */
+/*.swiper-slide:hover img {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+/* Text overlay at the bottom of the image */
+
+/* Navigation buttons styling (optional if you want customization) */
+
+/* Adjusting small screen responsiveness */
+@media (max-width: 768px) {
+    .swiper-slide-active {
+        transform: scale(1.1);
+    }
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: 90%;
+    }
+}
+
+/* For medium devices (tablets) */
+@media (max-width: 768px) {
+    .container {
+        width: 92%;
+    }
+}
+
+/* For small devices (phones) */
+@media (max-width: 576px) {
+    .container {
+        width: 96%;
+    }
+}
