@@ -6,10 +6,9 @@ export default function GuestLayout({ children }) {
     return (
         <div className="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0">
             <div>
-                {/*<Link href="/">*/}
-                {/*    <ApplicationLogo className="h-20 w-20 fill-current text-gray-500" />*/}
-                {/*</Link>*/}
-                <img src="/assets/images/logo2.png" alt="" className="h-20" />
+                <div className="flex items-center gap-x-6">
+                    <span className="text-xl font-bold text-gray-800">InvestPro</span>
+                </div>
             </div>
 
             <div className="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">

@@ -9,7 +9,7 @@ const Main = ({children}) => {
             <div>
                 <Header />
             </div>
-            <div className="mt-[77px]">
+            <div className="mt-[74px]">
                 {children}
             </div>
             <div>

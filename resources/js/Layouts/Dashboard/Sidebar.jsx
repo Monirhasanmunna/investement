@@ -12,6 +12,11 @@ const menuItems = [
         icon: <BiHomeAlt />,
     },
     {
+        label: 'Slider',
+        link: 'admin.slider.list',
+        icon: <BiHomeAlt />,
+    },
+    {
         label: 'Logout',
         icon: <FaSignOutAlt />,
     },

@@ -7,9 +7,9 @@ import 'swiper/css/pagination';
 
 export default function SliderComponent(){
     const heroSlides = [
-        { title: 'Grow Your Wealth', subtitle: 'Invest smart, live better', img: 'https://via.placeholder.com/1200x500?text=Grow+Your+Wealth' },
-        { title: 'Secure Future', subtitle: 'High returns, low risk', img: 'https://via.placeholder.com/1200x500?text=Secure+Future' },
-        { title: 'Global Opportunities', subtitle: 'Invest beyond borders', img: 'https://via.placeholder.com/1200x500?text=Global+Opportunities' }
+        { title: 'Grow Your Wealth', subtitle: 'Invest smart, live better', img: 'assets/images/image1.jpg' },
+        { title: 'Secure Future', subtitle: 'High returns, low risk', img: 'assets/images/image2.jpg' },
+        { title: 'Global Opportunities', subtitle: 'Invest beyond borders', img: 'assets/images/image3.jpg' }
     ];
 
 
@@ -34,9 +34,9 @@ export default function SliderComponent(){
                                     backgroundPosition: 'center'
                                 }}
                             >
-                                <div className="bg-black bg-opacity-40 w-full h-full flex flex-col justify-center items-center p-4">
-                                    <h1 className="text-3xl sm:text-5xl font-bold mb-2">{slide.title}</h1>
-                                    <p className="text-lg sm:text-xl">{slide.subtitle}</p>
+                                <div className=" w-full h-full flex flex-col justify-center items-center p-4">
+                                    {/*<h1 className="text-3xl sm:text-5xl font-bold mb-2">{slide.title}</h1>*/}
+                                    {/*<p className="text-lg sm:text-xl">{slide.subtitle}</p>*/}
                                 </div>
                             </div>
                         </SwiperSlide>

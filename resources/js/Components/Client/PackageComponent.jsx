@@ -6,14 +6,12 @@ import 'swiper/css/pagination';
 import 'swiper/css/grid';
 export default function PackageComponent(){
     const packages = [
-        { name: 'Starter Plan', price: '$500', interest: '2% Daily', btn: 'Book Now' },
-        { name: 'Pro Plan', price: '$2000', interest: '5% Daily', btn: 'Book Now' },
-        { name: 'Elite Plan', price: '$5000', interest: '8% Daily', btn: 'Book Now' },
-        { name: 'VIP Plan', price: '$10000', interest: '12% Daily', btn: 'Book Now' },
-        { name: 'Platinum Plan', price: '$20000', interest: '15% Daily', btn: 'Book Now' },
-        { name: 'Diamond Plan', price: '$50000', interest: '20% Daily', btn: 'Book Now' },
-        { name: 'Infinity Plan', price: '$100000', interest: '25% Daily', btn: 'Book Now' },
-        { name: 'Ultra Plan', price: '$200000', interest: '30% Daily', btn: 'Book Now' }
+        { name: 'Starter Plan', price: 'Tk4900', interest: '3.2% Daily', btn: 'Book Now' },
+        { name: 'Platinum Plan', price: 'TK9900', interest: '3.4% Daily', btn: 'Book Now' },
+        { name: 'Pro Plan', price: 'Tk14900', interest: '3.6% Daily', btn: 'Book Now' },
+        { name: 'Elite Plan', price: 'TK19900', interest: '3.8% Daily', btn: 'Book Now' },
+        { name: 'VIP Plan', price: 'TK30000', interest: '4% Daily', btn: 'Book Now' },
+        { name: 'Diamond Plan', price: 'TK50000', interest: '4.8% Daily', btn: 'Book Now' },
     ];
 
     return (

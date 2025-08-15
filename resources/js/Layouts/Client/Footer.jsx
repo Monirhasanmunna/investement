@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
+import {Link} from "@inertiajs/react";
 
 const Footer = () => {
     return (
@@ -7,7 +8,13 @@ const Footer = () => {
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
                 {/* Logo */}
                 <div className="flex items-center gap-4">
-                    <span className="font-bold text-xl">InvestPro</span>
+                    <Link href="/" className="flex items-center">
+                        <img
+                            src="/assets/images/logo2.png"
+                            alt="Company Logo"
+                            className="h-12 w-auto object-contain"
+                        />
+                    </Link>
                 </div>
 
                 {/* Social Icons */}
