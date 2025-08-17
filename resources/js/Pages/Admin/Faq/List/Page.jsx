@@ -78,8 +78,6 @@ export default function Page({data: faqListData}){
     }
 
 
-    console.log(faqListData)
-
     return (
         <Main>
             <div className="flex items-center justify-between border-b border-gray-300 p-5">

@@ -4,7 +4,18 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/grid';
+import {router, usePage} from "@inertiajs/react";
 export default function PackageComponent({packages}){
+    const {auth} = usePage().props
+    console.log(auth.user)
+    const handlePurchase = () => {
+        if(auth.user && auth.user?.user_type === 'investor'){
+            //next page
+        }
+        else{
+            router.get(route('user.login_page'))
+        }
+    }
     return (
         <section className="py-16">
             <h2 className="text-3xl font-bold text-center mb-10">Our Investment Packages</h2>
@@ -30,7 +41,7 @@ export default function PackageComponent({packages}){
                                 <p className="text-2xl font-bold text-green-600 mb-1">{pkg.price}</p>
                                 <p className="text-gray-600 mb-4 capitalize">Interest: {pkg.interest}% {pkg.interest_type}</p>
                             </div>
-                            <button className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-auto">Purchase Now</button>
+                            <button type={`button`} onClick={handlePurchase} className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-auto">Purchase Now</button>
                         </div>
                     </SwiperSlide>
                 ))}
