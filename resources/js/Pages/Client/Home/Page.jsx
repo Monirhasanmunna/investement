@@ -5,13 +5,13 @@ import PackageComponent from "@/Components/Client/PackageComponent.jsx";
 import FAQComponent from "@/Components/Client/Home/FAQComponent.jsx";
 
 
-const Page = () => {
+const Page = ({data}) => {
     return (
         <Main>
             <div className={`container mx-auto px-4`}>
-                <SliderComponent />
-                <PackageComponent />
-                <FAQComponent />
+                <SliderComponent sliders={data.sliders} />
+                <PackageComponent packages={data.packages} />
+                <FAQComponent faqs={data.faqs} />
             </div>
         </Main>
     )

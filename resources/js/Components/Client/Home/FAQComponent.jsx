@@ -1,13 +1,7 @@
 import {useState} from "react";
 import {BsArrowDown} from "react-icons/bs";
 
-export default function FAQComponent(){
-    const faqs = [
-        { q: 'How safe is my investment?', a: 'Your funds are invested in diversified low-risk portfolios.' },
-        { q: 'When do I get my returns?', a: 'Returns are credited monthly directly to your account.' },
-        { q: 'Can I withdraw early?', a: 'Yes, but early withdrawals may have a small penalty.' }
-    ];
-
+export default function FAQComponent({faqs}){
     const [openFAQ, setOpenFAQ] = useState(null);
 
     return (
@@ -21,13 +15,13 @@ export default function FAQComponent(){
                                 onClick={() => setOpenFAQ(openFAQ === i ? null : i)}
                                 className="w-full flex justify-between items-center p-4 text-left focus:outline-none"
                             >
-                                <span className="font-medium">{faq.q}</span>
+                                <span className="font-medium">{faq.question}</span>
                                 <BsArrowDown className={`transform transition-transform duration-300 ${openFAQ === i ? 'rotate-180' : ''}`} />
                             </button>
                             <div
                                 className={`transition-all duration-500 ease-in-out overflow-hidden ${openFAQ === i ? 'max-h-40 opacity-100 p-4 pt-0' : 'max-h-0 opacity-0 p-0'}`}
                             >
-                                <p className="text-gray-600">{faq.a}</p>
+                                <p className="text-gray-600">{faq.answer}</p>
                             </div>
                         </div>
                     ))}

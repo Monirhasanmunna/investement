@@ -1,34 +1,33 @@
 import { BiHomeAlt } from "react-icons/bi";
-import { FaSignOutAlt } from "react-icons/fa";
+import {FaPowerOff, FaSignOutAlt} from "react-icons/fa";
 import {useState} from "react";
 import {Link, router, usePage} from "@inertiajs/react";
 import {getQueries} from "@/helpers/helper.js";
+import {TfiLayoutSlider} from "react-icons/tfi";
+import {FaQ} from "react-icons/fa6";
+import {FiPackage} from "react-icons/fi";
 
 
 const menuItems = [
     {
         label: 'Dashboard',
         link: 'dashboard',
-        icon: <BiHomeAlt />,
+        icon: <BiHomeAlt className={`size-5`} />,
     },
     {
         label: 'Package',
         link: 'admin.package.list',
-        icon: <BiHomeAlt />,
+        icon: <FiPackage className={`size-5`} />,
     },
     {
         label: 'Slider',
         link: 'admin.slider.list',
-        icon: <BiHomeAlt />,
+        icon: <TfiLayoutSlider className={`size-5`} />,
     },
     {
         label: 'Faq',
         link: 'admin.faq.list',
-        icon: <BiHomeAlt />,
-    },
-    {
-        label: 'Logout',
-        icon: <FaSignOutAlt />,
+        icon: <FaQ className={`size-5`} />,
     },
 ];
 
@@ -115,6 +114,17 @@ export default function Sidebar() {
                                         </li>
                                     );
                                 })}
+                                <li>
+                                    <button
+                                        onClick={() => router.post(route('logout'))}
+                                        className={`flex items-center justify-between w-full px-3 py-2 rounded-t-sm hover:bg-gray-100 dark:hover:bg-neutral-700 focus:bg-gray-100 dark:focus:bg-neutral-700 text-gray-800 dark:text-neutral-200`}
+                                    >
+                                        <span className="flex items-center gap-3">
+                                            <FaSignOutAlt  className={`size-5`} />
+                                           <span>Logout</span>
+                                        </span>
+                                    </button>
+                                </li>
                             </ul>
                         </nav>
                     </div>
