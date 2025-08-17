@@ -12,8 +12,18 @@ const menuItems = [
         icon: <BiHomeAlt />,
     },
     {
+        label: 'Package',
+        link: 'admin.package.list',
+        icon: <BiHomeAlt />,
+    },
+    {
         label: 'Slider',
         link: 'admin.slider.list',
+        icon: <BiHomeAlt />,
+    },
+    {
+        label: 'Faq',
+        link: 'admin.faq.list',
         icon: <BiHomeAlt />,
     },
     {

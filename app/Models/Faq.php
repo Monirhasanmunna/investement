@@ -5,9 +5,9 @@ namespace App\Models;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
-class Slider extends Model
+class Faq extends Model
 {
     use Uuid;
 
-    protected $fillable = ['name', 'image', 'status'];
+    protected $fillable = ['question', 'answer', 'status'];
 }

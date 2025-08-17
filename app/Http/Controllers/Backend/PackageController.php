@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Backend\DashboardService;
-use App\Http\Services\Backend\SliderService;
+use App\Http\Services\Backend\PackageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class SliderController extends Controller
+class PackageController extends Controller
 {
     /**
-     * @param SliderService $service
+     * @param PackageService $service
      */
-    public function __construct(private readonly SliderService $service){}
+    public function __construct(private readonly PackageService $service){}
 
     /**
      * @param Request $request
@@ -26,7 +26,7 @@ class SliderController extends Controller
         $response = $this->handleSession( $this->service->getListData( $request->query()));
 
         return $response['success'] ?
-            Inertia::render('Admin/Slider/List/Page', $response)
+            Inertia::render('Admin/Package/List/Page', $response)
             : back()->withErrors($response['message']);
 
     }
@@ -37,10 +37,11 @@ class SliderController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-//        dd($request);
         $request->validate([
-            'name' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'name' => 'required|string|unique:packages,name',
+            'price' => 'required',
+            'interest_type' => 'required|in:'.implode(',', [INTEREST_TYPE_DAILY, INTEREST_TYPE_WEEKLY, INTEREST_TYPE_MONTHLY]),
+            'interest' => 'required',
         ]);
 
         $response = $this->handleSession( $this->service->storeData( $request->all()));
@@ -58,10 +59,13 @@ class SliderController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $request->validate([
-            'id'        => 'required|string|exists:sliders,id',
-            'name'      => 'nullable|string',
-            'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'id'                => 'required|string|exists:packages,id',
+            'name'              => 'required|string|unique:packages,name,'. $request->id,
+            'price'             => 'required',
+            'interest_type'     => 'required|in:'.implode(',', [INTEREST_TYPE_DAILY, INTEREST_TYPE_WEEKLY, INTEREST_TYPE_MONTHLY]),
+            'interest'          => 'required',
         ]);
+
 
         $response = $this->handleSession( $this->service->updateData( $request->all()));
 
@@ -78,7 +82,7 @@ class SliderController extends Controller
     public function changeStatus (Request $request): RedirectResponse
     {
         $request->validate([
-            'id'     => 'required|string|exists:sliders,id',
+            'id'     => 'required|string|exists:packages,id',
             'status' => 'required|in:'.implode(',', [STATUS_ACTIVE, STATUS_INACTIVE, STATUS_PENDING]),
         ]);
 

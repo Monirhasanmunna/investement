@@ -1,14 +1,14 @@
 <?php
 namespace App\Http\Services\Backend;
 
-use App\Models\Slider;
+use App\Models\Faq;
 use App\Traits\FileSaver;
 use App\Traits\Request;
 use App\Traits\Response;
 use Bitsmind\GraphSql\Facades\QueryAssist;
 use Bitsmind\GraphSql\QueryAssist as QueryAssistTrait;
 
-class SliderService
+class FaqService
 {
     use Request,Response, QueryAssistTrait, FileSaver;
 
@@ -28,22 +28,22 @@ class SliderService
                 $query['graph'] = '{*}';
             }
 
-            $dbQuery = Slider::query();
+            $dbQuery = Faq::query();
             $dbQuery = QueryAssist::queryOrderBy($dbQuery, $query);
             $dbQuery = QueryAssist::queryWhere($dbQuery, $query, ['status']);
-            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Slider);
+            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Faq);
 
             if (array_key_exists('search', $query)) {
                 $dbQuery = $dbQuery->where('name', 'like', '%'.$query['search'].'%');
             }
 
             $count = $dbQuery->count();
-            $sliders = $this->queryPagination($dbQuery, $query)->get();
+            $faqs = $this->queryPagination($dbQuery, $query)->get();
 
             return $this->response([
-                'sliders' => $sliders,
+                'faqs' => $faqs,
                 'count' => $count,
-                'sliderStatus' => commonStatus(),
+                'faqStatus' => commonStatus(),
                 ...$query
             ])->success();
         }
@@ -60,11 +60,9 @@ class SliderService
     public function storeData (array $payload): array
     {
         try {
-            $imageName = $this->upload_file( $payload['image'], 'slider','slider');
+            Faq::create( $this->_formatedFaqCreatedData( $payload));
 
-            Slider::create( $this->_formatedSliderCreatedData( $payload, $imageName));
-
-            return $this->response()->success('Slider created successfully');
+            return $this->response()->success('Faq created successfully');
 
         } catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -79,9 +77,9 @@ class SliderService
     public function updateData (array $payload): array
     {
         try {
-            $slider = Slider::where('id', $payload['id'])->first();
-            if(!$slider) {
-                return $this->response()->error('Slider not found');
+            $faq = Faq::where('id', $payload['id'])->first();
+            if(!$faq) {
+                return $this->response()->error('Faq not found');
             }
 
             $imageName = null;
@@ -89,9 +87,9 @@ class SliderService
                 $imageName = $this->upload_file( $payload['image'], 'slider','slider');
             }
 
-            $slider->update( $this->_formatedSliderUpdatedData( $payload, $imageName));
+            $faq->update( $this->_formatedFaqUpdatedData( $payload, $imageName));
 
-            return $this->response()->success('Slider updated successfully');
+            return $this->response()->success('Faq updated successfully');
 
         } catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -106,14 +104,14 @@ class SliderService
     public function changeStatus (array $payload): array
     {
         try {
-            $slider = Slider::where('id', $payload['id'])->first();
-            if (!$slider) {
-                return $this->response()->error("Slider not found");
+            $faq = Faq::where('id', $payload['id'])->first();
+            if (!$faq) {
+                return $this->response()->error("Faq not found");
             }
 
-            $slider->update(['status' => $payload['status']]);
+            $faq->update(['status' => $payload['status']]);
 
-            return $this->response(['tag' => $slider])->success('Slider Status Updated Successfully');
+            return $this->response(['tag' => $faq])->success('Faq Status Updated Successfully');
         }
         catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -127,13 +125,13 @@ class SliderService
     public function deleteData (string $id): array
     {
         try {
-            $slider = Slider::where('id', $id)->first();
-            if (!$slider) {
-                return $this->response()->error("Slider not found");
+            $faq = Faq::where('id', $id)->first();
+            if (!$faq) {
+                return $this->response()->error("Faq not found");
             }
-            $slider->delete();
+            $faq->delete();
 
-            return $this->response()->success('Slider Deleted Successfully');
+            return $this->response()->success('Faq Deleted Successfully');
         }
         catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -143,14 +141,13 @@ class SliderService
 
     /**
      * @param array $payload
-     * @param null $imageName
      * @return array
      */
-    private function _formatedSliderCreatedData(array $payload, $imageName = null): array
+    private function _formatedFaqCreatedData(array $payload): array
     {
         return [
-            'name' => $payload['name'],
-            'image' => $imageName,
+            'answer' => $payload['answer'],
+            'question' => $payload['question'],
         ];
     }
 
@@ -160,12 +157,12 @@ class SliderService
      * @param null $imageName
      * @return array
      */
-    private function _formatedSliderUpdatedData(array $payload, $imageName = null): array
+    private function _formatedFaqUpdatedData(array $payload, $imageName = null): array
     {
         $data = [];
 
-        if(array_key_exists('name', $payload)) $data['name']     = $payload['name'];
-        if(!empty($imageName)) $data['image']                         = $imageName;
+        if(array_key_exists('answer', $payload)) $data['answer']            = $payload['answer'];
+        if(array_key_exists('question', $payload)) $data['question']        = $payload['question'];
 
         return $data;
     }

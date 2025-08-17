@@ -1,14 +1,14 @@
 <?php
 namespace App\Http\Services\Backend;
 
-use App\Models\Slider;
+use App\Models\Package;
 use App\Traits\FileSaver;
 use App\Traits\Request;
 use App\Traits\Response;
 use Bitsmind\GraphSql\Facades\QueryAssist;
 use Bitsmind\GraphSql\QueryAssist as QueryAssistTrait;
 
-class SliderService
+class PackageService
 {
     use Request,Response, QueryAssistTrait, FileSaver;
 
@@ -28,22 +28,23 @@ class SliderService
                 $query['graph'] = '{*}';
             }
 
-            $dbQuery = Slider::query();
+            $dbQuery = Package::query();
             $dbQuery = QueryAssist::queryOrderBy($dbQuery, $query);
             $dbQuery = QueryAssist::queryWhere($dbQuery, $query, ['status']);
-            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Slider);
+            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Package);
 
             if (array_key_exists('search', $query)) {
                 $dbQuery = $dbQuery->where('name', 'like', '%'.$query['search'].'%');
             }
 
             $count = $dbQuery->count();
-            $sliders = $this->queryPagination($dbQuery, $query)->get();
+            $packages = $this->queryPagination($dbQuery, $query)->get();
 
             return $this->response([
-                'sliders' => $sliders,
+                'packages' => $packages,
                 'count' => $count,
-                'sliderStatus' => commonStatus(),
+                'packageStatus' => commonStatus(),
+                'interestType' => interestType(),
                 ...$query
             ])->success();
         }
@@ -60,11 +61,9 @@ class SliderService
     public function storeData (array $payload): array
     {
         try {
-            $imageName = $this->upload_file( $payload['image'], 'slider','slider');
+            Package::create( $this->_formatedPackageCreatedData( $payload));
 
-            Slider::create( $this->_formatedSliderCreatedData( $payload, $imageName));
-
-            return $this->response()->success('Slider created successfully');
+            return $this->response()->success('Package created successfully');
 
         } catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -79,19 +78,14 @@ class SliderService
     public function updateData (array $payload): array
     {
         try {
-            $slider = Slider::where('id', $payload['id'])->first();
-            if(!$slider) {
-                return $this->response()->error('Slider not found');
+            $faq = Package::where('id', $payload['id'])->first();
+            if(!$faq) {
+                return $this->response()->error('Package not found');
             }
 
-            $imageName = null;
-            if(!empty($payload['image'])) {
-                $imageName = $this->upload_file( $payload['image'], 'slider','slider');
-            }
+            $faq->update( $this->_formatedPackageUpdatedData( $payload));
 
-            $slider->update( $this->_formatedSliderUpdatedData( $payload, $imageName));
-
-            return $this->response()->success('Slider updated successfully');
+            return $this->response()->success('Package updated successfully');
 
         } catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -106,14 +100,14 @@ class SliderService
     public function changeStatus (array $payload): array
     {
         try {
-            $slider = Slider::where('id', $payload['id'])->first();
-            if (!$slider) {
-                return $this->response()->error("Slider not found");
+            $faq = Package::where('id', $payload['id'])->first();
+            if (!$faq) {
+                return $this->response()->error("Package not found");
             }
 
-            $slider->update(['status' => $payload['status']]);
+            $faq->update(['status' => $payload['status']]);
 
-            return $this->response(['tag' => $slider])->success('Slider Status Updated Successfully');
+            return $this->response(['tag' => $faq])->success('Package Status Updated Successfully');
         }
         catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -127,13 +121,13 @@ class SliderService
     public function deleteData (string $id): array
     {
         try {
-            $slider = Slider::where('id', $id)->first();
-            if (!$slider) {
-                return $this->response()->error("Slider not found");
+            $faq = Package::where('id', $id)->first();
+            if (!$faq) {
+                return $this->response()->error("Package not found");
             }
-            $slider->delete();
+            $faq->delete();
 
-            return $this->response()->success('Slider Deleted Successfully');
+            return $this->response()->success('Package Deleted Successfully');
         }
         catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -143,29 +137,31 @@ class SliderService
 
     /**
      * @param array $payload
-     * @param null $imageName
      * @return array
      */
-    private function _formatedSliderCreatedData(array $payload, $imageName = null): array
+    private function _formatedPackageCreatedData(array $payload): array
     {
         return [
             'name' => $payload['name'],
-            'image' => $imageName,
+            'price' => $payload['price'],
+            'interest_type' => $payload['interest_type'],
+            'interest' => $payload['interest'],
         ];
     }
 
 
     /**
      * @param array $payload
-     * @param null $imageName
      * @return array
      */
-    private function _formatedSliderUpdatedData(array $payload, $imageName = null): array
+    private function _formatedPackageUpdatedData(array $payload): array
     {
         $data = [];
 
-        if(array_key_exists('name', $payload)) $data['name']     = $payload['name'];
-        if(!empty($imageName)) $data['image']                         = $imageName;
+        if(array_key_exists('name', $payload)) $data['name']                            = $payload['name'];
+        if(array_key_exists('price', $payload)) $data['price']                          = $payload['price'];
+        if(array_key_exists('interest_type', $payload)) $data['interest_type']          = $payload['interest_type'];
+        if(array_key_exists('interest', $payload)) $data['interest']                    = $payload['interest'];
 
         return $data;
     }
