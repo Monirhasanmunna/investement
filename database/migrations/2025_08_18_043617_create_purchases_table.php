@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('trx_id');
             $table->decimal('amount', 10, 2)->default(0);
             $table->json('package_info')->nullable();
-            $table->dateTime('purchase_at')->default(now());
+            $table->dateTime('purchase_at')->default(today());
+            $table->string('status', 20)->default(PURCHASE_STATUS_PENDING);
             $table->timestamps();
 
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');

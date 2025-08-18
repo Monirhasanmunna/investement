@@ -6,17 +6,15 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Wallet extends Model
+class Transaction extends Model
 {
     use Uuid;
 
     protected $fillable = [
         'user_id',
+        'type',
         'amount',
-        'status',
-        'type'
     ];
-
 
     /**
      * @return BelongsTo

@@ -1,8 +1,32 @@
 import Main from "@/Layouts/Client/Main.jsx";
+import {useForm} from "@inertiajs/react";
+import Button from "@/Components/Utils/Button/Button.jsx";
+import InputError from "@/Components/InputError.jsx";
 
 export default function Page({data:packageData}) {
+    const {data, setData, post, processing, errors} = useForm({
+        package_id: packageData.package?.id,
+        trx_id: '',
+        reference_name: '',
+        reference_phone: ''
+    });
 
-    console.log(packageData)
+
+    const handleFormInput = (e) => {
+        const {id, value} = e.target
+
+        setData(prev => ({
+            ...prev,
+            [id]: value
+        }))
+    }
+
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        post(route('purchase.store'))
+    }
+
     return (
         <Main>
             <div className="min-h-[calc(100vh-200px)] flex items-center justify-center p-4">
@@ -22,29 +46,30 @@ export default function Page({data:packageData}) {
                         <p>🏦 ব্যাংক একাউন্ট নাম্বার: <span className="font-bold">1234567890</span></p>
                     </div>
 
-                    <form action="#" method="POST" className="space-y-4">
+                    <form onSubmit={handleFormSubmit} className="space-y-4">
                         <div>
                             <label className="block text-gray-700 mb-1">ট্রানজ্যাকশন আইডি</label>
-                            <input type="text" name="trx_id" placeholder="ট্রানজ্যাকশন আইডি লিখুন"
-                                   className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300"/>
+                            <input type="text" name="trx_id" id="trx_id" value={data.trx_id} onChange={handleFormInput} placeholder="ট্রানজ্যাকশন আইডি লিখুন" className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300"/>
+                            <InputError message={errors.trx_id} className="mt-2" />
                         </div>
 
                         <div>
                             <label className="block text-gray-700 mb-1">রেফারেন্স নাম</label>
-                            <input type="text" name="reference_name" placeholder="রেফারেন্স নাম লিখুন"
-                                   className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300"/>
+                            <input type="text" name="reference_name" id="reference_name" value={data.reference_name} onChange={handleFormInput} placeholder="রেফারেন্স নাম লিখুন" className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300"/>
+                            <InputError message={errors.reference_name} className="mt-2" />
                         </div>
 
                         <div>
                             <label className="block text-gray-700 mb-1">যে নাম্বার থেকে টাকা পাঠিয়েছেন</label>
-                            <input type="text" name="sender_number" placeholder="মোবাইল নাম্বার লিখুন"
-                                   className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300"/>
+                            <input type="text" name="reference_phone" id="reference_phone" value={data.reference_phone} onChange={handleFormInput} placeholder="মোবাইল নাম্বার লিখুন" className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-300"/>
+                            <InputError message={errors.reference_phone} className="mt-2" />
                         </div>
 
-                        <button type="submit"
-                                className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition">
-                            সাবমিট করুন
-                        </button>
+                        <Button
+                            className={`w-full bg-indigo-600 text-white font-semibold py-5 rounded-lg hover:bg-indigo-700 transition`}
+                            isLoading={processing}
+                            buttonText={`সাবমিট করুন`}
+                        />
                     </form>
 
                     <p className="text-sm text-gray-500 mt-6 text-center">আপনার প্রদত্ত তথ্য যাচাই করার পর আপনার

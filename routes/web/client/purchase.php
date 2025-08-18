@@ -5,3 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/purchase/{packageId}',[PurchaseController::class,'PurchasePage'])->name('purchase');
+Route::post('/purchase',[PurchaseController::class,'Purchase'])->name('purchase.store');

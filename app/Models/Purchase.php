@@ -19,7 +19,8 @@ class Purchase extends Model
         'status',
         'amount',
         'package_info',
-        'purchased_at'
+        'purchase_at',
+        'status'
     ];
 
 

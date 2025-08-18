@@ -8,3 +8,6 @@ const INTEREST_TYPE_DAILY = 'daily';
 const INTEREST_TYPE_WEEKLY = 'weekly';
 const INTEREST_TYPE_MONTHLY = 'monthly';
 
+const PURCHASE_STATUS_ACCEPTED = 'accepted';
+const PURCHASE_STATUS_PENDING = 'pending';
+
