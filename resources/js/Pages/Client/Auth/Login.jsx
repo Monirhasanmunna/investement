@@ -92,7 +92,7 @@ const Page = ({data: packageData}) => {
 
                             <p className="mt-6 text-center text-sm text-gray-600">
                                 Don’t have an account?{' '}
-                                <Link href={route('user.register_page')} className="font-medium text-gray-900 hover:underline">
+                                <Link href={route('user.register_page', {package_id: packageId})} className="font-medium text-gray-900 hover:underline">
                                     Register here
                                 </Link>
                             </p>

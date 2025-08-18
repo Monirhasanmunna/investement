@@ -15,9 +15,18 @@ class AuthController extends Controller
     public function __construct(private readonly  AuthService $authService){}
 
 
-    public function RegisterPage(Request $request): Response
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function RegisterPage(Request $request): Response|RedirectResponse
     {
-        return Inertia::render('Client/Auth/Registration');
+        $response = $this->handleSession( $this->authService->registerPage( $request->query()));
+
+        return $response['success'] ?
+            Inertia::render('Client/Auth/Registration')->with($response)
+            : back()->withErrors($response['message']);
+
     }
 
 
@@ -37,8 +46,10 @@ class AuthController extends Controller
         $response = $this->handleSession( $this->authService->register( $request->all()));
 
         return $response['success'] ?
-           to_route('user.login_page')->with($response)
-            : back()->withErrors($response['message']);
+            !array_key_exists('packageId', $response['data']) ?
+                to_route('user.login_page')->with($response)
+                : to_route('user.login_page', ['package_id' => $response['data']['packageId']])->with($response)
+                    : back()->withErrors($response['message']);
     }
 
 
@@ -67,6 +78,7 @@ class AuthController extends Controller
             'password' => 'required|min:8',
             'package_id' => 'nullable|exists:packages,id',
         ]);
+
 
         $response = $this->handleSession( $this->authService->login( $request->all()));
 

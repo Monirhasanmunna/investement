@@ -7,7 +7,6 @@ import 'swiper/css/grid';
 import {router, usePage} from "@inertiajs/react";
 export default function PackageComponent({packages}){
     const {auth} = usePage().props
-    console.log(auth.user)
     const handlePurchase = (packageId) => {
         if(auth.user && auth.user?.user_type === 'investor'){
             router.get(route('purchase', {packageId: packageId}))

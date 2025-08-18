@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Main from "@/Layouts/Client/Main.jsx";
 import Button from "@/Components/Utils/Button/Button.jsx";
 import {Link, useForm} from "@inertiajs/react";
 import InputError from "@/Components/InputError.jsx";
 
-const Page = () => {
+const Page = ({data: packageData}) => {
+    const {packageId} = packageData
     const {data, setData, post, processing, errors} = useForm({
         name: '',
         phone: '',
@@ -12,6 +13,14 @@ const Page = () => {
         confirm_password: ''
     })
 
+    useEffect(() => {
+        if(packageId){
+            setData(prev => ({
+                ...prev,
+                package_id: packageId
+            }))
+        }
+    }, [packageId]);
 
     const handleInputText = (e) => {
         const {id,value} = e.target
@@ -118,7 +127,7 @@ const Page = () => {
 
                             <p className="mt-6 text-center text-sm text-gray-600">
                                 Already have an account?{' '}
-                                <Link href={route('user.login_page')} className="font-medium text-gray-900 hover:underline">
+                                <Link href={route('user.login_page', {package_id: packageId})} className="font-medium text-gray-900 hover:underline">
                                     Sign in
                                 </Link>
                             </p>

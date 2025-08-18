@@ -53,6 +53,23 @@ class AuthService
 
 
     /**
+     * @param array $query
+     * @return array
+     */
+    public function registerPage(array $query): array
+    {
+        try {
+            return $this->response([
+                'packageId' => $query['package_id'] ?? null,
+            ])->success();
+        }
+        catch (\Exception $e) {
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+
+    /**
      * @param array $payload
      * @return array
      */
@@ -70,6 +87,10 @@ class AuthService
                 'password' => Hash::make($payload['password']),
                 'user_type' => 'investor',
             ]);
+
+            if(array_key_exists('package_id', $payload) && !empty($payload['package_id'])) {
+                return $this->response(['packageId' => $payload['package_id']])->success('Registration successfully.');
+            }
 
             return $this->response()->success('Registration successfully.');
         }
