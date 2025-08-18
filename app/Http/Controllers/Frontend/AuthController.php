@@ -14,10 +14,6 @@ class AuthController extends Controller
 {
     public function __construct(private readonly  AuthService $authService){}
 
-    public function LoginPage(Request $request): Response
-    {
-        return Inertia::render('Client/Auth/Login');
-    }
 
     public function RegisterPage(Request $request): Response
     {
@@ -43,5 +39,41 @@ class AuthController extends Controller
         return $response['success'] ?
            to_route('user.login_page')->with($response)
             : back()->withErrors($response['message']);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function LoginPage(Request $request): Response|RedirectResponse
+    {
+        $response = $this->handleSession( $this->authService->loginPage( $request->query()));
+
+        return $response['success'] ?
+            Inertia::render('Client/Auth/Login')->with($response)
+            : back()->withErrors($response['message']);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function login(Request $request): Response|RedirectResponse
+    {
+        $request->validate([
+            'phone' => 'required|exists:users,phone',
+            'password' => 'required|min:8',
+            'package_id' => 'nullable|exists:packages,id',
+        ]);
+
+        $response = $this->handleSession( $this->authService->login( $request->all()));
+
+        return $response['success'] ?
+            !array_key_exists('packageId', $response['data']) ?
+                Inertia::render('Client/Auth/Login')->with($response)
+                    : to_route('purchase', ['packageId' => $response['data']['packageId']])
+                        : back()->withErrors($response['message']);
     }
 }

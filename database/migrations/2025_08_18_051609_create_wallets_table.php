@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packages', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->unique();
-            $table->float('price')->default(0);
-            $table->string('interest_type', 20)->default(INTEREST_TYPE_DAILY);
-            $table->integer('interest')->default(0);
-            $table->string('status', 20)->default(STATUS_ACTIVE);
+            $table->uuid('user_id');
+            $table->string('amount');
+            $table->string('status')->default('pending');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('wallets');
     }
 };

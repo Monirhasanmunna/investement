@@ -21,6 +21,7 @@ class DashboardController extends Controller
     public function Home(Request $request): Response|RedirectResponse
     {
         $response = $this->dashboardService->Home($request->query());
+
         return $response['success'] ?
             Inertia::render('Admin/Home/Page', $response) :
             back()->withErrors($response['message']);

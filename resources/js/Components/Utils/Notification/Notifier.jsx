@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { usePage } from "@inertiajs/react";
 import { notify } from "@/helpers/helper.js";
 import { ToastContainer } from "react-toastify";

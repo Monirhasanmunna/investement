@@ -8,12 +8,12 @@ import {router, usePage} from "@inertiajs/react";
 export default function PackageComponent({packages}){
     const {auth} = usePage().props
     console.log(auth.user)
-    const handlePurchase = () => {
+    const handlePurchase = (packageId) => {
         if(auth.user && auth.user?.user_type === 'investor'){
-            //next page
+            router.get(route('purchase', {packageId: packageId}))
         }
         else{
-            router.get(route('user.login_page'))
+            router.get(route('user.login_page', {package_id: packageId}))
         }
     }
     return (
@@ -41,7 +41,7 @@ export default function PackageComponent({packages}){
                                 <p className="text-2xl font-bold text-green-600 mb-1">{pkg.price}</p>
                                 <p className="text-gray-600 mb-4 capitalize">Interest: {pkg.interest}% {pkg.interest_type}</p>
                             </div>
-                            <button type={`button`} onClick={handlePurchase} className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-auto">Purchase Now</button>
+                            <button type={`button`} onClick={() => handlePurchase(pkg.id)} className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-auto">Purchase Now</button>
                         </div>
                     </SwiperSlide>
                 ))}
