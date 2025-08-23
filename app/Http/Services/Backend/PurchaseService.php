@@ -2,6 +2,8 @@
 namespace App\Http\Services\Backend;
 
 use App\Models\Purchase;
+use App\Models\Transaction;
+use App\Models\Wallet;
 use App\Traits\FileSaver;
 use App\Traits\Request;
 use App\Traits\Response;
@@ -52,51 +54,6 @@ class PurchaseService
         }
     }
 
-
-    /**
-     * @param array $payload
-     * @return array
-     */
-    public function storeData (array $payload): array
-    {
-        try {
-            Purchase::create( $this->_formatedPurchaseCreatedData( $payload));
-
-            return $this->response()->success('Purchase created successfully');
-
-        } catch (\Exception $exception) {
-            return $this->response()->error($exception->getMessage());
-        }
-    }
-
-
-    /**
-     * @param array $payload
-     * @return array
-     */
-    public function updateData (array $payload): array
-    {
-        try {
-            $faq = Purchase::where('id', $payload['id'])->first();
-            if(!$faq) {
-                return $this->response()->error('Purchase not found');
-            }
-
-            $imageName = null;
-            if(!empty($payload['image'])) {
-                $imageName = $this->upload_file( $payload['image'], 'slider','slider');
-            }
-
-            $faq->update( $this->_formatedPurchaseUpdatedData( $payload, $imageName));
-
-            return $this->response()->success('Purchase updated successfully');
-
-        } catch (\Exception $exception) {
-            return $this->response()->error($exception->getMessage());
-        }
-    }
-
-
     /**
      * @param array $payload
      * @return array
@@ -104,34 +61,28 @@ class PurchaseService
     public function changeStatus (array $payload): array
     {
         try {
-            $faq = Purchase::where('id', $payload['id'])->first();
-            if (!$faq) {
+            $purchase = Purchase::where('id', $payload['id'])->first();
+            if (!$purchase) {
                 return $this->response()->error("Purchase not found");
             }
 
-            $faq->update(['status' => $payload['status']]);
+            $purchase->update(['status' => $payload['status']]);
 
-            return $this->response(['tag' => $faq])->success('Purchase Status Updated Successfully');
-        }
-        catch (\Exception $exception) {
-            return $this->response()->error($exception->getMessage());
-        }
-    }
-
-    /**
-     * @param string $id
-     * @return array
-     */
-    public function deleteData (string $id): array
-    {
-        try {
-            $faq = Purchase::where('id', $id)->first();
-            if (!$faq) {
-                return $this->response()->error("Purchase not found");
+            if($purchase->status === STATUS_ACTIVE){
+                $purchaseTransaction = Transaction::where('type', 'investment')->where('user_id', $purchase->user_id)->exists();
+                if(!$purchaseTransaction){
+                    Transaction::create( $this->_transactionCreatedDataFormat( $purchase));
+                }
             }
-            $faq->delete();
 
-            return $this->response()->success('Purchase Deleted Successfully');
+            if($purchase->status === STATUS_ACTIVE){
+                $purchaseWallet = Wallet::where('type', 'investment')->where('user_id', $purchase->user_id)->exists();
+                if(!$purchaseWallet){
+                    Wallet::create( $this->_walletCreateDataFormat( $purchase));
+                }
+            }
+
+            return $this->response(['purchase' => $purchase])->success('Purchase Status Updated Successfully');
         }
         catch (\Exception $exception) {
             return $this->response()->error($exception->getMessage());
@@ -140,30 +91,25 @@ class PurchaseService
 
 
     /**
-     * @param array $payload
+     * @param object $purchase
      * @return array
      */
-    private function _formatedPurchaseCreatedData(array $payload): array
+    public function _transactionCreatedDataFormat(object $purchase): array
     {
         return [
-            'answer' => $payload['answer'],
-            'question' => $payload['question'],
+            'user_id' => $purchase->user_id,
+            'amount' => $purchase->amount,
+            'type'  => 'investment',
         ];
     }
 
-
-    /**
-     * @param array $payload
-     * @param null $imageName
-     * @return array
-     */
-    private function _formatedPurchaseUpdatedData(array $payload, $imageName = null): array
+    public function _walletCreateDataFormat(object $purchase): array
     {
-        $data = [];
-
-        if(array_key_exists('answer', $payload)) $data['answer']            = $payload['answer'];
-        if(array_key_exists('question', $payload)) $data['question']        = $payload['question'];
-
-        return $data;
+        return [
+            'user_id' => $purchase->user_id,
+            'amount' => $purchase->amount,
+            'type'  => 'investment',
+        ];
     }
+
 }

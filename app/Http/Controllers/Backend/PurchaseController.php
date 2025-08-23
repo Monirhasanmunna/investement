@@ -30,43 +30,6 @@ class PurchaseController extends Controller
 
     }
 
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'question' => 'required|string|unique:faqs,question',
-            'answer' => 'required|string',
-        ]);
-
-        $response = $this->handleSession( $this->service->storeData( $request->all()));
-
-        return $response['success'] ?
-            back()->with($response)
-            : back()->withErrors($response['message']);
-    }
-
-
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function update(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'id'        => 'required|string|exists:faqs,id',
-            'question' => 'required|string|unique:faqs,question,'. $request->id,
-            'answer' => 'required|string',
-        ]);
-
-        $response = $this->handleSession( $this->service->updateData( $request->all()));
-
-        return $response['success'] ?
-            back()->with($response)
-            : back()->withErrors($response['message']);
-    }
 
 
     /**
@@ -76,8 +39,8 @@ class PurchaseController extends Controller
     public function changeStatus (Request $request): RedirectResponse
     {
         $request->validate([
-            'id'     => 'required|string|exists:faqs,id',
-            'status' => 'required|in:'.implode(',', [STATUS_ACTIVE, STATUS_INACTIVE, STATUS_PENDING]),
+            'id'     => 'required|string|exists:purchases,id',
+            'status' => 'required|in:'.implode(',', [STATUS_ACTIVE, STATUS_PENDING]),
         ]);
 
         $response = $this->service->changeStatus( $request->all());
@@ -86,16 +49,5 @@ class PurchaseController extends Controller
             : back()->withErrors($response['message']);
     }
 
-    /**
-     * @param string $id
-     * @return RedirectResponse
-     */
-    public function destroy (string $id): RedirectResponse
-    {
-        $response = $this->service->deleteData( $id);
-        return $response['success'] ?
-            back()->with($response)
-            : back()->withErrors($response['message']);
-    }
 
 }

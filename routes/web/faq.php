@@ -3,7 +3,7 @@
 use App\Http\Controllers\Backend\FaqController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['as'=> 'admin.faq.', 'prefix' => 'faq' ,'middleware' => ['auth']], function () {
+Route::group(['as'=> 'admin.faq.', 'prefix' => 'admin/faq' ,'middleware' => ['auth']], function () {
     Route::get('/list', [FaqController::class, 'getList'])->name('list');
     Route::post('/store', [FaqController::class, 'store'])->name('store');
     Route::post('/update', [FaqController::class, 'update'])->name('update');
