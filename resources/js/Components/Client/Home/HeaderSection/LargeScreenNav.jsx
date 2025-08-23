@@ -16,7 +16,7 @@ export default function LargeScreenNav() {
                 </div>
                 <div>
                     {
-                        auth?.user ? (
+                        auth?.user && auth.user.user_type === 'investor' ? (
                             <Link href={route('user.dashboard.dashboard')} className="bg-green-600 text-white px-6 py-2.5 rounded hover:bg-green-700 transition">
                                 Dashboard
                             </Link>

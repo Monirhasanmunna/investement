@@ -12,7 +12,7 @@ Autoloader::loadFilesRecursivelyInDirs([__DIR__ . '/web/']);
 
 
 
-Route::get('/dashboard', [DashboardController::class, 'Home'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'Home'])->middleware(['auth', 'verified', 'admin.auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

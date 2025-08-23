@@ -34,6 +34,10 @@ class AuthService
     public function login (array $payload): array
     {
         try {
+            if(Auth::check()){
+                Auth::logout();
+            }
+
             if(Auth::attempt(['phone' => $payload['phone'], 'password' => $payload['password']])) {
                 session()->regenerate();
 

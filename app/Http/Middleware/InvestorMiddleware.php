@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class InvestorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->user_type !== 'admin'){
-            return to_route('login');
+        if(Auth::check() && Auth::user()->user_type !== 'investor'){
+            return to_route('home');
         }
 
         return $next($request);

@@ -15,6 +15,11 @@ const menuItems = [
         icon: <BiHomeAlt className={`size-5`} />,
     },
     {
+        label: 'Investment',
+        link: 'admin.purchase.list',
+        icon: <FiPackage className={`size-5`} />,
+    },
+    {
         label: 'Package',
         link: 'admin.package.list',
         icon: <FiPackage className={`size-5`} />,
