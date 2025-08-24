@@ -13,7 +13,7 @@ export default function Main({children}){
             <footer className="mt-auto border-t border-gray-300 flex justify-around py-2 bg-slate-800">
                 <Link href={route('user.dashboard.dashboard')} className="text-gray-100 cursor-pointer">Home</Link>
                 <Link href={route('client.transection.list')} className="text-gray-100 cursor-pointer">Transections</Link>
-                <button className="text-gray-100 cursor-pointer">Wallet</button>
+                <Link href={route('client.wallet.list')} className="text-gray-100 cursor-pointer">Wallet</Link>
                 <button onClick={() => router.post(route('logout'))} className="text-gray-100 cursor-pointer">Logout</button>
             </footer>
         </div>

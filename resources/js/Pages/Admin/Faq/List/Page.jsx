@@ -37,6 +37,7 @@ export default function Page({data: faqListData}){
         }
     }, [pagination]);
 
+
     useEffect(() => {
         if (pagination?.page && pagination?.length && go) {
             console.log('search')

@@ -9,14 +9,14 @@ import Main from "@/Layouts/Client/Dashboard/Main.jsx";
 import {FaArrowDown, FaArrowUp} from "react-icons/fa";
 
 
-export default function Page({data: transectionListData}){
-    const [pagination, setPagination] = useState({page: transectionListData.page, length: transectionListData.length})
+export default function Page({data: walletListData}){
+    const [pagination, setPagination] = useState({page: walletListData.page, length: walletListData.length})
     const [go, setGo] = useState(false)
 
 
     useEffect(() => {
-        setPaginationFromSessionStorage(setPagination, 'client_transection_pagination', {
-            page: transectionListData?.page, length: transectionListData?.length, type: transectionListData.type, searchText: ""
+        setPaginationFromSessionStorage(setPagination, 'client_wallet_pagination', {
+            page: walletListData?.page, length: walletListData?.length, type: walletListData.type, searchText: ""
         }, )
     }, []);
 
@@ -31,20 +31,20 @@ export default function Page({data: transectionListData}){
 
             if (pagination.type) queryParams.type = pagination.type;
 
-            router.get(route('client.transection.list', queryParams))
+            router.get(route('client.wallet.list', queryParams))
 
-            sessionStorage.setItem('client_transection_pagination', JSON.stringify(pagination))
+            sessionStorage.setItem('client_wallet_pagination', JSON.stringify(pagination))
         }
     }, [go]);
 
-    console.log(transectionListData)
+    console.log(walletListData)
 
     return (
         <Main>
             <div className="w-full p-5">
                 <div className="flex justify-between  items-center my-4 text-[.75rem]">
                     <div className="flex items-center gap-x-6">
-                        <h2 className="font-medium text-xl leading-6 text-neutral-700 dark:text-neutral-300">Transections</h2>
+                        <h2 className="font-medium text-xl leading-6 text-neutral-700 dark:text-neutral-300">Wallet</h2>
                     </div>
                     <LengthDropdown
                         callback={(value) => {
@@ -74,28 +74,21 @@ export default function Page({data: transectionListData}){
                             </thead>
 
                             <tbody>
-                            {transectionListData.transections.map((transection) => (
+                            {walletListData.wallets.map((wallet) => (
                                 <tr
-                                    key={transection.id}
+                                    key={wallet.id}
                                     className="hover:bg-gray-100 dark:hover:bg-neutral-600"
                                 >
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400 whitespace-nowrap">
-                                        {convertToLocalDateTime(transection.created_at)}
+                                        {convertToLocalDateTime(wallet.created_at)}
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400 whitespace-nowrap">
                                         <div className="w-full flex gap-1 items-center">
-                                            {
-                                                transection.type === 'investment' ? (
-                                                    <span><FaArrowUp className={`size-3 text-green-500`} /></span>
-                                                ) : (
-                                                    <span><FaArrowDown  className={`size-3 text-red-600`} /></span>
-                                                )
-                                            }
-                                            <span>{transection.amount}</span>
+                                            <span>Tk.{wallet.amount}</span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-2 capitalize font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400 whitespace-nowrap">
-                                        {transection.type}
+                                        {wallet.type}
                                     </td>
                                 </tr>
                             ))}
@@ -107,14 +100,14 @@ export default function Page({data: transectionListData}){
                     <div className="py-3 sm:px-6">
                         <div className="flex flex-col sm:flex-row gap-2 items-center justify-between">
                             <Summary
-                                page={transectionListData.page}
-                                length={transectionListData.length}
-                                count={transectionListData.count}
+                                page={walletListData.page}
+                                length={walletListData.length}
+                                count={walletListData.count}
                             />
                             <Navigation
                                 page={pagination.page}
-                                length={transectionListData.length}
-                                count={transectionListData.count}
+                                length={walletListData.length}
+                                count={walletListData.count}
                                 callback={(cp) => {
                                     setPagination((state) => ({ ...state, page: cp }))
                                     setGo(true)
