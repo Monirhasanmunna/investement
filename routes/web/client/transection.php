@@ -3,5 +3,6 @@
 use App\Http\Controllers\Frontend\TransectionController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/user/transection',[TransectionController::class,'getList'])->name('client.transection.list');
+Route::group(['as' => 'client.', 'prefix' => 'user', 'auth' => ['user.auth']], function () {
+    Route::get('transection',[TransectionController::class,'getList'])->name('transection.list');
+});

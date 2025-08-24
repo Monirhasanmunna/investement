@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {convertToLocalDateTime, setPaginationFromSessionStorage} from "@/helpers/helper.js";
 import {router} from "@inertiajs/react";
 import LengthDropdown from "@/Components/Utils/Pagination/LengthDropdown.jsx";
@@ -37,14 +37,14 @@ export default function Page({data: walletListData}){
         }
     }, [go]);
 
-    console.log(walletListData)
+    const totalAmount = useMemo(() => walletListData.wallets.reduce((sum, wallet) => sum + Number(wallet.amount), 0), [walletListData.wallets])
 
     return (
         <Main>
             <div className="w-full p-5">
                 <div className="flex justify-between  items-center my-4 text-[.75rem]">
                     <div className="flex items-center gap-x-6">
-                        <h2 className="font-medium text-xl leading-6 text-neutral-700 dark:text-neutral-300">Wallet</h2>
+                        <h2 className="font-medium text-xl leading-6 text-neutral-700 dark:text-neutral-300">Wallet (Tk.{totalAmount})</h2>
                     </div>
                     <LengthDropdown
                         callback={(value) => {

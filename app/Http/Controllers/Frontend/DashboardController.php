@@ -21,7 +21,7 @@ class DashboardController extends Controller
      */
     public function Dashboard(Request $request): Response|RedirectResponse
     {
-        $response = $this->service->DashboardPage( $request->query());
+        $response = $this->handleSession( $this->service->DashboardPage( $request->query()));
 
         return $response['success'] ?
             Inertia::render('Client/Dashboard/Page', $response) :

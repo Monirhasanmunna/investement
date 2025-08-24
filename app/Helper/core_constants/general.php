@@ -19,3 +19,7 @@ const TRANSECTION_TYPE_NOT_INTEREST = 'interest';
 const WALLET_STATUS_WITHDRAW = 'withdraw';
 const WALLET_STATUS_NOTWITHDRAWN = 'not_withdrawn';
 
+
+const WITHDRAW_STATUS_PENDING = 'pending';
+const WITHDRAW_STATUS_ACCEPTED = 'accepted';
+

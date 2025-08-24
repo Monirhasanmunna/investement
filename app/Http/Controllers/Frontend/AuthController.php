@@ -84,7 +84,7 @@ class AuthController extends Controller
 
         return $response['success'] ?
             !array_key_exists('packageId', $response['data']) ?
-                Inertia::render('Client/Auth/Login')->with($response)
+                to_route('user.dashboard.dashboard')->with($response)
                     : to_route('purchase', ['packageId' => $response['data']['packageId']])
                         : back()->withErrors($response['message']);
     }
