@@ -21,6 +21,7 @@ export const setPaginationFromSessionStorage = (setPagination, sessionKey, ref) 
         if (paginationSessionData.page)       ref.page          = paginationSessionData.page
         if (paginationSessionData.length)     ref.length        = paginationSessionData.length
         if (paginationSessionData.status)     ref.status        = paginationSessionData.status
+        if (paginationSessionData.type)     ref.type        = paginationSessionData.type
         if (paginationSessionData.searchText) ref.searchText    = paginationSessionData.searchText
     }
 

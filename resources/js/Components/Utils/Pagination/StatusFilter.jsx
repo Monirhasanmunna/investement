@@ -1,9 +1,9 @@
-const StatusFilter = ({status, setPagination, pagination, setGo, segment}) => {
+const StatusFilter = ({status, statusKey = 'status', setPagination, pagination, setGo, segment}) => {
     return (
         <div className="flex items-center justify-end border border-gray-800 rounded-sm overflow-hidden">
             {Object.keys(status).map((key, index) => {
                 const statusText = status[key];
-                const isActive = pagination.status === key;
+                const isActive = pagination[statusKey] === key;
 
                 return (
                     <button
@@ -13,10 +13,10 @@ const StatusFilter = ({status, setPagination, pagination, setGo, segment}) => {
                             color: isActive ? "#fff" : "#000",
                         }}
                         className={`cursor-pointer px-4 py-[8px] transition-colors hover:bg-gray-100
-                                        ${index !== Object.keys(status).length - 1 ? 'border-r border-gray-300' : ''}
+                                        ${index !== Object.keys(statusKey).length - 1 ? 'border-r border-gray-300' : ''}
                                     `}
                         onClick={() => {
-                            setPagination((state) => ({ ...state, status: `${key}` }));
+                            setPagination((state) => ({ ...state, [statusKey]: `${key}` }));
                             setGo(true);
                         }}
                         type="button"
@@ -27,12 +27,12 @@ const StatusFilter = ({status, setPagination, pagination, setGo, segment}) => {
             })}
             <button
                 style={{
-                    backgroundColor: pagination.status == null ? "#000" : "#fff",
-                    color: pagination.status == null ? "#fff" : "#000",
+                    backgroundColor: pagination[statusKey] == null ? "#000" : "#fff",
+                    color: pagination[statusKey] == null ? "#fff" : "#000",
                 }}
                 className="cursor-pointer capitalize px-4 py-[8px] transition-colors hover:bg-gray-100"
                 onClick={() => {
-                    setPagination((state) => ({ ...state, status: null }));
+                    setPagination((state) => ({ ...state, [statusKey]: null }));
                     setGo(true);
                 }}
                 type="button"

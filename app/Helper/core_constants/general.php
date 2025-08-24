@@ -11,3 +11,7 @@ const INTEREST_TYPE_MONTHLY = 'monthly';
 const PURCHASE_STATUS_ACCEPTED = 'accepted';
 const PURCHASE_STATUS_PENDING = 'pending';
 
+
+const TRANSECTION_TYPE_INVESTMENT = 'investment';
+const TRANSECTION_TYPE_NOT_INTEREST = 'interest';
+
