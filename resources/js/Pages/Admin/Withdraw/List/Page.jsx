@@ -63,7 +63,7 @@ export default function Page({data: withdrawListData}){
             </div>
 
             <div className="w-full p-5">
-                <div className="flex justify-between  items-center my-4 text-[.75rem]">
+                <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-2 my-4 text-[.75rem]">
                     <LengthDropdown
                         callback={(value) => {
                             setPagination(prevState => ({...prevState, page: 1, length: value}))
@@ -71,7 +71,7 @@ export default function Page({data: withdrawListData}){
                         }}
                         placeholder={pagination.length}
                     />
-                    <div className="flex items-center justify-end gap-3 flex-wrap">
+                    <div className="flex items-center justify-start gap-3 flex-wrap">
                         <StatusFilter status={withdrawListData.withdrawStatus} pagination={pagination} setPagination={setPagination} setGo={setGo} segment="Status" />
                     </div>
                 </div>

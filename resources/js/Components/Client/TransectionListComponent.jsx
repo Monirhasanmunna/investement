@@ -36,7 +36,7 @@ export default function TransectionListComponent({transectionListData, title = "
 
     return (
         <div className="w-full p-5">
-            <div className="flex justify-between  items-center my-4 text-[.75rem]">
+            <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-2 my-4 text-[.75rem]">
                 <div className="flex items-center gap-x-6">
                     <h2 className="font-medium text-xl leading-6 text-neutral-700 dark:text-neutral-300">{title}</h2>
                 </div>

@@ -110,13 +110,13 @@ export default function Sidebar() {
                                                         const isActive = route().current(child.link);
 
                                                         return (
-                                                            <Link key={cIndex} href={route(child.link, getQueries( child.session_key))}>
+                                                            <button key={cIndex} onClick={() => {router(route(child.link))}}>
                                                             <li
                                                                 className={`hover:text-yellow-500 ${isActive ? "text-yellow-500" : ""} cursor-pointer py-2 px-6`}
                                                             >
                                                                 {child.label}
                                                             </li>
-                                                            </Link>
+                                                            </button>
                                                         );
                                                     })}
                                                 </ul>
@@ -126,7 +126,9 @@ export default function Sidebar() {
                                 })}
                                 <li>
                                     <button
-                                        onClick={() => router.post(route('logout'))}
+                                        onClick={() => {
+                                            router.post(route('logout'))
+                                        }}
                                         className={`flex items-center justify-between w-full px-3 py-2 rounded-t-sm hover:bg-gray-100 dark:hover:bg-neutral-700 focus:bg-gray-100 dark:focus:bg-neutral-700 text-gray-800 dark:text-neutral-200`}
                                     >
                                         <span className="flex items-center gap-3">
