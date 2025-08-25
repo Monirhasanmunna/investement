@@ -8,7 +8,7 @@ export default function Main({children}){
     return (
         <>
             <Notifier/>
-            <div className="max-w-xl min-h-screen md:min-h-[600px] mx-auto bg-white flex flex-col md:border border-gray-400 md:shadow-2xl shadow-gray-200 md:rounded md:mt-10">
+            <div className="max-w-xl min-h-[100vh] md:min-h-[600px] mx-auto bg-white flex flex-col md:border border-gray-400 md:shadow-2xl shadow-gray-200 md:rounded md:mt-10">
                 <header className="flex items-center justify-between px-4 py-3 border-b border-gray-300 bg-slate-800 text-gray-100 rounded-t md:rounded-t">
                     <h1 className="text-lg font-semibold">Hi! {auth.user.name}</h1>
                 </header>
