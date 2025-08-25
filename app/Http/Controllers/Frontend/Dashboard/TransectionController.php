@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Frontend\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Frontend\HomeService;
-use App\Http\Services\Frontend\TransectionService;
+use App\Http\Services\Frontend\Dashboard\TransectionService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;

@@ -1,9 +1,7 @@
 <?php
-namespace App\Http\Services\Frontend;
+namespace App\Http\Services\Frontend\Dashboard;
 
-use App\Models\Purchase;
 use App\Models\Transaction;
-use App\Models\Wallet;
 use App\Traits\FileSaver;
 use App\Traits\Request;
 use App\Traits\Response;
@@ -11,7 +9,7 @@ use Bitsmind\GraphSql\Facades\QueryAssist;
 use Bitsmind\GraphSql\QueryAssist as QueryAssistTrait;
 use Illuminate\Support\Facades\Auth;
 
-class WalletService
+class TransectionService
 {
     use Request,Response, QueryAssistTrait, FileSaver;
 
@@ -31,16 +29,17 @@ class WalletService
                 $query['graph'] = '{*}';
             }
 
-            $dbQuery = Wallet::where('user_id', Auth::id())->where('status', WALLET_STATUS_NOTWITHDRAWN);
+            $dbQuery = Transaction::where('user_id', Auth::id());
             $dbQuery = QueryAssist::queryOrderBy($dbQuery, $query);
-            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Wallet);
+            $dbQuery = QueryAssist::queryWhere($dbQuery, $query, ['status','type']);
+            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Transaction);
 
             $count = $dbQuery->count();
-            $wallets = $this->queryPagination($dbQuery, $query)->get();
+            $transections = $this->queryPagination($dbQuery, $query)->get();
 
             return $this->response([
-                'wallets' => $wallets,
-                'walletStatus' => walletStatus(),
+                'transections' => $transections,
+                'transectionStatus' => transectionStatus(),
                 'count' => $count,
                 ...$query
             ])->success();

@@ -13,7 +13,8 @@ class DashboardService
     public function Home (array $query): array
     {
         try {
-           return $this->response( )->success('Login Successfully');
+
+           return $this->response()->success('Login Successfully');
         } catch (\Exception $exception) {
             return $this->response( )->error($exception->getMessage());
         }

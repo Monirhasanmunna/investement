@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Frontend\WithdrawController;
+use App\Http\Controllers\Frontend\Dashboard\WithdrawController;
 use Illuminate\Support\Facades\Route;
 
 

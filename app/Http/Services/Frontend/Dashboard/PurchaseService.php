@@ -1,9 +1,7 @@
 <?php
-namespace App\Http\Services\Frontend;
+namespace App\Http\Services\Frontend\Dashboard;
 
 use App\Models\Purchase;
-use App\Models\Transaction;
-use App\Models\Wallet;
 use App\Traits\FileSaver;
 use App\Traits\Request;
 use App\Traits\Response;
@@ -11,7 +9,7 @@ use Bitsmind\GraphSql\Facades\QueryAssist;
 use Bitsmind\GraphSql\QueryAssist as QueryAssistTrait;
 use Illuminate\Support\Facades\Auth;
 
-class TransectionService
+class PurchaseService
 {
     use Request,Response, QueryAssistTrait, FileSaver;
 
@@ -31,17 +29,15 @@ class TransectionService
                 $query['graph'] = '{*}';
             }
 
-            $dbQuery = Transaction::where('user_id', Auth::id());
+            $dbQuery = Purchase::where('user_id', Auth::id());
             $dbQuery = QueryAssist::queryOrderBy($dbQuery, $query);
-            $dbQuery = QueryAssist::queryWhere($dbQuery, $query, ['status','type']);
-            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Transaction);
+            $dbQuery = QueryAssist::queryGraphSQL($dbQuery, $query, new Purchase);
 
             $count = $dbQuery->count();
-            $transections = $this->queryPagination($dbQuery, $query)->get();
+            $purchases = $this->queryPagination($dbQuery, $query)->get();
 
             return $this->response([
-                'transections' => $transections,
-                'transectionStatus' => transectionStatus(),
+                'purchases' => $purchases,
                 'count' => $count,
                 ...$query
             ])->success();

@@ -15,7 +15,7 @@ export default function Main({children}){
 
                 {children}
 
-                <footer className="mt-auto border-t border-gray-300 flex justify-around py-2 bg-slate-800">
+                <footer className="mt-auto border-t border-gray-300 flex justify-around py-3 bg-slate-800">
                     <Link href={route('user.dashboard.dashboard')} className="text-gray-100 cursor-pointer">Home</Link>
                     <Link href={route('client.transection.list')} className="text-gray-100 cursor-pointer">Transections</Link>
                     <Link href={route('client.wallet.list')} className="text-gray-100 cursor-pointer">Wallet</Link>

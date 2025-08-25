@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Frontend\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Frontend\DashboardService;
-use App\Http\Services\Frontend\PurchaseService;
+use App\Http\Services\Frontend\Dashboard\DashboardService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

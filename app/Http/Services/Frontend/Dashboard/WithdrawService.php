@@ -1,7 +1,6 @@
 <?php
-namespace App\Http\Services\Frontend;
+namespace App\Http\Services\Frontend\Dashboard;
 
-use App\Models\Purchase;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use App\Models\Withdraw;
