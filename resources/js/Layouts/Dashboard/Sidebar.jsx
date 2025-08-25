@@ -1,11 +1,12 @@
 import { BiHomeAlt } from "react-icons/bi";
-import {FaPowerOff, FaSignOutAlt} from "react-icons/fa";
+import {FaFileInvoiceDollar, FaPowerOff, FaSignOutAlt} from "react-icons/fa";
 import {useState} from "react";
 import {Link, router, usePage} from "@inertiajs/react";
 import {getQueries} from "@/helpers/helper.js";
 import {TfiLayoutSlider} from "react-icons/tfi";
 import {FaQ} from "react-icons/fa6";
 import {FiPackage} from "react-icons/fi";
+import {PiHandWithdrawBold} from "react-icons/pi";
 
 
 const menuItems = [
@@ -17,12 +18,17 @@ const menuItems = [
     {
         label: 'Investment',
         link: 'admin.purchase.list',
-        icon: <FiPackage className={`size-5`} />,
+        icon: <FaFileInvoiceDollar className={`size-5`} />,
     },
     {
         label: 'Package',
         link: 'admin.package.list',
         icon: <FiPackage className={`size-5`} />,
+    },
+    {
+        label: 'Withdraw',
+        link: 'admin.withdraw.list',
+        icon: <PiHandWithdrawBold className={`size-5`} />,
     },
     {
         label: 'Slider',
@@ -55,15 +61,14 @@ export default function Sidebar() {
                 aria-label="Sidebar"
             >
                 <div className="w-full border-b border-gray-200 dark:border-neutral-700 h-[59px] flex justify-center items-center p-3">
-                    <h2 className={`text-blue-600 text-2xl`}>My Flight</h2>
+                    <h2 className={`text-blue-400 text-2xl`}>Dashboard</h2>
                 </div>
                 <div className="relative flex flex-col h-full max-h-full">
                     <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
                         <nav className="p-4">
                             <ul className="flex flex-col gap-1">
                                 {menuItems.map((item, index) => {
-                                    // True if any child route is active using route().current()
-                                    const hasActiveChild = item.activeLinks?.some(link => route().current(link));
+                                    const hasActiveChild = route().current(item.link);
                                     const isOpen = openIndex === index;
                                     const shouldShow = isOpen || hasActiveChild;
 
@@ -71,7 +76,7 @@ export default function Sidebar() {
                                         <li key={index}>
                                             <button
                                                 onClick={() => toggleDropdown( item.children ? index : router.get(route(item.link)))}
-                                                className={`flex items-center justify-between w-full px-3 py-2 rounded-t-sm ${shouldShow ? 'bg-gray-100 dark:bg-neutral-700' : ''} hover:bg-gray-100 dark:hover:bg-neutral-700 focus:bg-gray-100 dark:focus:bg-neutral-700 text-gray-800 dark:text-neutral-200`}
+                                                className={`flex items-center justify-between w-full px-3 py-2 rounded-t-sm ${shouldShow ? 'bg-blue-100 dark:bg-neutral-700' : ''} hover:bg-blue-100 dark:hover:bg-neutral-700 focus:bg-gray-100 dark:focus:bg-neutral-700 text-gray-800 dark:text-neutral-200`}
                                                 aria-expanded={shouldShow}
                                             >
                                               <span className="flex items-center gap-3">
