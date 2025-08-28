@@ -11,6 +11,7 @@ use Bitsmind\GraphSql\Facades\QueryAssist;
 use Bitsmind\GraphSql\QueryAssist as QueryAssistTrait;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WithdrawService
 {
@@ -85,6 +86,7 @@ class WithdrawService
                 throw new \Exception('Amount less then Tk.50');
             }
 
+            DB::beginTransaction();
             $totalAmount = 0;
             foreach ($totalWallet as $wallet) {
                 $wallet->update(['status' => WALLET_STATUS_WITHDRAW]);
@@ -101,9 +103,11 @@ class WithdrawService
                 'amount' => $totalAmount,
             ]);
 
+            DB::commit();
             return $this->response([])->success('Withdraw Successful');
         }
         catch (\Exception $exception) {
+            DB::rollBack();
             return $this->response()->error($exception->getMessage());
         }
     }
