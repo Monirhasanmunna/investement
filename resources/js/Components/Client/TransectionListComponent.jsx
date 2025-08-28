@@ -80,7 +80,7 @@ export default function TransectionListComponent({transectionListData, title = "
                                 <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400 whitespace-nowrap">
                                     <div className="w-full flex gap-1 items-center">
                                         {
-                                            transection.type === 'investment' ? (
+                                            transection.type !== 'withdraw' ? (
                                                 <span><FaArrowUp className={`size-3 text-green-500`} /></span>
                                             ) : (
                                                 <span><FaArrowDown  className={`size-3 text-red-600`} /></span>

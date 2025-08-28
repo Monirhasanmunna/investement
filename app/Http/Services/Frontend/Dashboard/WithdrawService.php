@@ -81,7 +81,7 @@ class WithdrawService
                     });
             })->get();
 
-            if($totalWallet->count() < 50){
+            if($totalWallet->sum('amount') < 50){
                 throw new \Exception('Amount less then Tk.50');
             }
 

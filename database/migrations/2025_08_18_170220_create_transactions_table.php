@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
-            $table->uuid('purchase_id');
+            $table->uuid('purchase_id')->nullable();
             $table->decimal('amount', 10, 2)->default(0);
             $table->string('type')->default('withdraw');
             $table->timestamps();

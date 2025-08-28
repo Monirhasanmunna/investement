@@ -104,7 +104,7 @@ export default function Page({data: purchaseListData}){
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         TK.{purchase.amount}
                                     </td>
-                                    <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
+                                    <td className="px-4 py-2 capitalize font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         {purchase.status}
                                     </td>
                                 </tr>
