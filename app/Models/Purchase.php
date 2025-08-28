@@ -20,7 +20,8 @@ class Purchase extends Model
         'amount',
         'package_info',
         'purchase_at',
-        'status'
+        'status',
+        'last_interest_paid',
     ];
 
 

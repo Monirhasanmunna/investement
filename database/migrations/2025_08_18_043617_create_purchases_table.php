@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2)->default(0);
             $table->json('package_info')->nullable();
             $table->dateTime('purchase_at')->default(today());
+            $table->dateTime('last_interest_paid')->nullable();
             $table->string('status', 20)->default(PURCHASE_STATUS_PENDING);
             $table->timestamps();
 
