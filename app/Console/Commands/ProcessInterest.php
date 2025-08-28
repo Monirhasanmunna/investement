@@ -8,6 +8,7 @@ use App\Models\Wallet;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProcessInterest extends Command
 {
@@ -82,17 +83,16 @@ class ProcessInterest extends Command
                     // Update last_interest_paid
                     $purchase->last_interest_paid = now();
                     $purchase->save();
-
-                    $this->info($interestAmount);
                 }
             }
 
             DB::commit();
-            $this->info('Interest processed successfully ✅');
+//            $this->info('Interest processed successfully ✅');
+            Log::info('Interest processed');
         }
         catch (\Exception $e) {
             DB::rollBack();
-            $this->error($e->getMessage());
+            Log::error($e->getMessage());
         }
     }
 }
