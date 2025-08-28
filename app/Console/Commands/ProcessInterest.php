@@ -39,6 +39,7 @@ class ProcessInterest extends Command
                 throw new \Exception("No active investment purchases");
             }
 
+            DB::beginTransaction();
             foreach ($purchases as $purchase) {
                 $package = json_decode($purchase->package_info, true);
                 $user = $purchase->user;
@@ -61,7 +62,6 @@ class ProcessInterest extends Command
                 }
 
                 if($due) {
-                    DB::beginTransaction();
                     $interestAmount = $amount * ($interestRate / 100);
 
                     // Wallet create
@@ -82,6 +82,8 @@ class ProcessInterest extends Command
                     // Update last_interest_paid
                     $purchase->last_interest_paid = now();
                     $purchase->save();
+
+                    $this->info($interestAmount);
                 }
             }
 
