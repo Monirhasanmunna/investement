@@ -81,8 +81,8 @@ class WithdrawService
                     });
             })->get();
 
-            if($totalWallet->count() <= 0){
-                throw new \Exception('Not enough amount to withdraw');
+            if($totalWallet->count() < 50){
+                throw new \Exception('Amount less then Tk.50');
             }
 
             $totalAmount = 0;

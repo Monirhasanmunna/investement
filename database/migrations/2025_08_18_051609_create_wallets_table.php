@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('wallets', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
+            $table->uuid('purchase_id');
             $table->decimal('amount', 10, 2)->default(0);
             $table->string('type', 20)->default('interest');
             $table->string('status', 20)->default('not_withdrawn');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
         });
     }
 

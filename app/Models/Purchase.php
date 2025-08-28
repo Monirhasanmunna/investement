@@ -40,4 +40,20 @@ class Purchase extends Model
         return $this->belongsTo(Package::class, 'package_id', 'id');
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function wallet(): BelongsTo
+    {
+        return $this->belongsTo(Wallet::class, 'purchase_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function transaction(): BelongsTo
+    {
+        return $this->belongsTo(Transaction::class, 'purchase_id', 'id');
+    }
+
 }

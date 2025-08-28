@@ -12,6 +12,7 @@ class Wallet extends Model
 
     protected $fillable = [
         'user_id',
+        'purchase_id',
         'amount',
         'status',
         'type'
@@ -24,5 +25,13 @@ class Wallet extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function purchase(): BelongsTo
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id', 'id');
     }
 }

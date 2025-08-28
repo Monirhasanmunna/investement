@@ -9,6 +9,7 @@ use App\Traits\Request;
 use App\Traits\Response;
 use Bitsmind\GraphSql\Facades\QueryAssist;
 use Bitsmind\GraphSql\QueryAssist as QueryAssistTrait;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseService
 {
@@ -66,25 +67,36 @@ class PurchaseService
                 return $this->response()->error("Purchase not found");
             }
 
+            DB::beginTransaction();
             $purchase->update(['status' => $payload['status']]);
 
             if($purchase->status === STATUS_ACTIVE){
-                $purchaseTransaction = Transaction::where('type', 'investment')->where('user_id', $purchase->user_id)->exists();
+                $purchaseTransaction = Transaction::where('type', 'investment')
+                    ->where('user_id', $purchase->user_id)
+                    ->where('purchase_id', $purchase->id)
+                    ->exists();
+
                 if(!$purchaseTransaction){
                     Transaction::create( $this->_transactionCreatedDataFormat( $purchase));
                 }
             }
 
             if($purchase->status === STATUS_ACTIVE){
-                $purchaseWallet = Wallet::where('type', 'investment')->where('user_id', $purchase->user_id)->exists();
+                $purchaseWallet = Wallet::where('type', 'investment')
+                    ->where('user_id', $purchase->user_id)
+                    ->where('purchase_id', $purchase->id)
+                    ->exists();
+
                 if(!$purchaseWallet){
                     Wallet::create( $this->_walletCreateDataFormat( $purchase));
                 }
             }
 
+            DB::commit();
             return $this->response(['purchase' => $purchase])->success('Purchase Status Updated Successfully');
         }
         catch (\Exception $exception) {
+            DB::rollBack();
             return $this->response()->error($exception->getMessage());
         }
     }
@@ -98,6 +110,7 @@ class PurchaseService
     {
         return [
             'user_id' => $purchase->user_id,
+            'purchase_id' => $purchase->id,
             'amount' => $purchase->amount,
             'type'  => 'investment',
         ];
@@ -107,6 +120,7 @@ class PurchaseService
     {
         return [
             'user_id' => $purchase->user_id,
+            'purchase_id' => $purchase->id,
             'amount' => $purchase->amount,
             'type'  => 'investment',
         ];

@@ -12,6 +12,7 @@ class Transaction extends Model
 
     protected $fillable = [
         'user_id',
+        'purchase_id',
         'type',
         'amount',
     ];
@@ -22,5 +23,13 @@ class Transaction extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function purchase(): BelongsTo
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id', 'id');
     }
 }
