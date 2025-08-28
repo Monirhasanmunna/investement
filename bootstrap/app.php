@@ -30,5 +30,5 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->command('interest:process')->everyMinute();
+        $schedule->command('interest:process')->everyTwoHours($minutes = 0);
     })->create();
