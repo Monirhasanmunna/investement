@@ -13,7 +13,7 @@ export default function Main({children}){
                     <h1 className="text-lg font-semibold">Hi! {auth.user.name}</h1>
                 </header>
 
-                <div className="flex-1 w-full mt-10">{children}</div>
+                <div className="flex-1 w-full">{children}</div>
 
                 <footer className="border-t border-gray-300 flex justify-around py-3 bg-slate-800 rounded-b sticky bottom-0">
                     <Link href={route('user.dashboard.dashboard')} className="text-gray-100 cursor-pointer">Home</Link>
