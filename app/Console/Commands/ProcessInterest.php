@@ -49,7 +49,7 @@ class ProcessInterest extends Command
                 $interestRate = $package['interest'] ?? 0;
                 $interestType = $package['interest_type'] ?? 'daily';
 
-                $lastInterest = $purchase->last_interest_date ?? $purchase->purchase_at;
+                $lastInterest = $purchase->last_interest_paid ?? $purchase->purchase_at;
                 $due = false;
 
                 // For daily interest: 24 hours since last interest
