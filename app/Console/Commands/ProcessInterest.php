@@ -32,7 +32,7 @@ class ProcessInterest extends Command
     public function handle()
     {
         try {
-            $purchases = Purchase::with(['user'])->where('status', STATUS_ACTIVE)
+            $purchases = Purchase::with(['user', 'package'])->where('status', STATUS_ACTIVE)
                 ->whereHas('user', fn ($query) => $query->where('user_type', 'investor'))
                 ->get();
 
@@ -48,6 +48,12 @@ class ProcessInterest extends Command
                 $amount = $package['price'];
                 $interestRate = $package['interest'] ?? 0;
                 $interestType = $package['interest_type'] ?? 'daily';
+
+                $expiryDate = isset($purchase->package->duration) ? Carbon::parse($purchase->package->duration) : null;
+
+                if ($expiryDate && now()->gte($expiryDate)) {
+                    continue;
+                }
 
                 $lastInterest = $purchase->last_interest_paid ?? $purchase->purchase_at;
                 $due = false;
