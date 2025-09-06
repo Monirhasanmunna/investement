@@ -146,6 +146,7 @@ class PackageService
             'price' => $payload['price'],
             'interest_type' => $payload['interest_type'],
             'interest' => $payload['interest'],
+            'duration' => $payload['duration'],
         ];
     }
 
@@ -162,6 +163,7 @@ class PackageService
         if(array_key_exists('price', $payload)) $data['price']                          = $payload['price'];
         if(array_key_exists('interest_type', $payload)) $data['interest_type']          = $payload['interest_type'];
         if(array_key_exists('interest', $payload)) $data['interest']                    = $payload['interest'];
+        if(array_key_exists('duration', $payload)) $data['duration']                    = $payload['duration'];
 
         return $data;
     }

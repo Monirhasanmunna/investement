@@ -17,6 +17,7 @@ return new class extends Migration
             $table->float('price')->default(0);
             $table->string('interest_type', 20)->default(INTEREST_TYPE_DAILY);
             $table->integer('interest')->default(0);
+            $table->date('duration')->default(now());
             $table->string('status', 20)->default(STATUS_ACTIVE);
             $table->timestamps();
         });

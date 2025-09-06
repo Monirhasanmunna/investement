@@ -11,6 +11,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
         price: '',
         interest_type: 'daily',
         interest: '',
+        duration: '',
     });
 
 
@@ -22,6 +23,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                 price: selectPackage.price ?? '',
                 interest_type: selectPackage.interest_type ?? '',
                 interest: selectPackage.interest ?? '',
+                duration: selectPackage.duration?.split(" ")[0] ?? '',
                 id: selectPackage.id ?? ''
             })
         } else {
@@ -30,6 +32,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                 price: '',
                 interest_type: 'daily',
                 interest: '',
+                duration: '',
             })
         }
     }, [selectPackage])
@@ -118,6 +121,10 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                             <div className="form-control">
                                 <label htmlFor="interest" className={`label`}>Interest <span className={`text-xs text-red-600`}>*</span></label>
                                 <input type="number" id={`interest`} value={data.interest} onChange={handleTextInput} className={`input`} placeholder={`Enter interest`}/>
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="duration" className={`label`}>Duration <span className={`text-xs text-red-600`}>*</span></label>
+                                <input type="date" id={`duration`} value={data.duration} onChange={handleTextInput} className={`input`} placeholder={`Enter duration`}/>
                             </div>
 
                             <div className="form-control pt-4">

@@ -10,7 +10,7 @@ class Package extends Model
 {
     use Uuid;
 
-    protected $fillable = ['name', 'price', 'interest_type', 'interest', 'status'];
+    protected $fillable = ['name', 'price', 'interest_type', 'interest', 'duration', 'status'];
 
 
     /**
