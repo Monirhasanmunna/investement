@@ -22,6 +22,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'user_type',
+        'withdraw_info'
     ];
 
     protected $hidden = [

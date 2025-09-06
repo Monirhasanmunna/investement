@@ -86,3 +86,14 @@ export function formatDate(dateStr) {
 
     return `${day} ${month} ${year}`;
 }
+
+
+
+export async function copyText(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        notify({success:true, message: 'Text copy successfully'})
+    } catch (err) {
+        console.error("Failed to copy:", err);
+    }
+}

@@ -25,7 +25,7 @@ class WithdrawService
             }
 
             if (!array_key_exists('graph', $query)) {
-                $query['graph'] = '{*,user{name,phone}}';
+                $query['graph'] = '{*,user{name,phone,withdraw_info}}';
             }
 
             $dbQuery = Withdraw::query();

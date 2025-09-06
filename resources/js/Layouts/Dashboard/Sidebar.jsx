@@ -1,5 +1,5 @@
 import { BiHomeAlt } from "react-icons/bi";
-import {FaFileInvoiceDollar, FaPowerOff, FaSignOutAlt} from "react-icons/fa";
+import {FaFileInvoiceDollar, FaPowerOff, FaSignOutAlt, FaUsers} from "react-icons/fa";
 import {useState} from "react";
 import {Link, router, usePage} from "@inertiajs/react";
 import {getQueries} from "@/helpers/helper.js";
@@ -29,6 +29,11 @@ const menuItems = [
         label: 'Withdraw',
         link: 'admin.withdraw.list',
         icon: <PiHandWithdrawBold className={`size-5`} />,
+    },
+    {
+        label: 'User',
+        link: 'admin.user.list',
+        icon: <FaUsers className={`size-5`} />,
     },
     {
         label: 'Slider',
