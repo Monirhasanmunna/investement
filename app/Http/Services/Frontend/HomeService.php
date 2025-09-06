@@ -30,9 +30,9 @@ class HomeService
     public function getData (array $query): array
     {
         try {
-            $packages = Cache::remember('packages', now()->addMinute(20), function () {
+            $packages = Cache::remember('packages', now()->addMinute(10), function () {
                 $packageDBQuery = [
-                    'graph' => '{name,price,interest_type,interest}',
+                    'graph' => '{name,price,interest_type,interest,duration}',
                     'status' => STATUS_ACTIVE,
                     'length' => 100
                 ];
@@ -40,7 +40,7 @@ class HomeService
                 return $this->packageService->getListData( $packageDBQuery);
             });
 
-            $sliders = Cache::remember('sliders', now()->addMinute(30), function () {
+            $sliders = Cache::remember('sliders', now()->addMinute(20), function () {
                 $sliderDBQuery = [
                     'graph' => '{image}',
                     'status' => STATUS_ACTIVE,
@@ -51,7 +51,7 @@ class HomeService
             });
 
 
-            $faqs = Cache::remember('faqs', now()->addMinute(30), function () {
+            $faqs = Cache::remember('faqs', now()->addMinute(20), function () {
                 $faqDBQuery = [
                     'graph' => '{question,answer}',
                     'status' => STATUS_ACTIVE,

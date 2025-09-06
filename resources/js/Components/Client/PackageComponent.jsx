@@ -38,9 +38,18 @@ export default function PackageComponent({packages}){
                             <div>
                                 <h3 className="text-xl font-semibold mb-2">{pkg.name}</h3>
                                 <p className="text-2xl font-bold text-green-600 mb-1">{pkg.price}</p>
-                                <p className="text-gray-600 mb-4 capitalize">Interest: {pkg.interest}% {pkg.interest_type}</p>
+                                <p className="text-gray-600 mb-1 capitalize">
+                                    Interest: {pkg.interest}% {pkg.interest_type}
+                                </p>
+                                <p className="text-gray-600 mb-4">Duration: {pkg.duration?.split(' ')[0]}</p>
                             </div>
-                            <button type={`button`} onClick={() => handlePurchase(pkg.id)} className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-auto">Purchase Now</button>
+                            <button
+                                type="button"
+                                onClick={() => handlePurchase(pkg.id)}
+                                className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-auto"
+                            >
+                                Purchase Now
+                            </button>
                         </div>
                     </SwiperSlide>
                 ))}
