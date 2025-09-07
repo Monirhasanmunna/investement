@@ -7,7 +7,6 @@ use App\Http\Services\Backend\SliderService;
 use App\Traits\FileSaver;
 use App\Traits\Request;
 use App\Traits\Response;
-use Bitsmind\GraphSql\Facades\QueryAssist;
 use Bitsmind\GraphSql\QueryAssist as QueryAssistTrait;
 use Illuminate\Support\Facades\Cache;
 
@@ -60,7 +59,6 @@ class HomeService
 
                 return $this->faqService->getListData( $faqDBQuery);
             });
-
 
 
             $data = [

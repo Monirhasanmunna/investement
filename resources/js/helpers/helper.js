@@ -88,6 +88,33 @@ export function formatDate(dateStr) {
 }
 
 
+export const deepUpdate = (target, source) => {
+    if (target === null) return source
+
+    // if type
+    if (typeof target !== typeof source) {
+
+        if (!(
+            ['number','string'].includes(typeof target)
+            && ['number','string'].includes(typeof target)
+        )) return target
+
+    }
+
+    // if type same
+    if (target instanceof Array && source instanceof Array) return source;
+    // if type not array
+    if (typeof target !== 'object') return source;
+    // if type object
+
+    const output = {...target};
+    for (const key of Object.keys(target)) {
+        output[key] = deepUpdate(target[key], source[key]);
+    }
+
+    return output;
+};
+
 
 export async function copyText(text) {
     try {

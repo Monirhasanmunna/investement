@@ -2,6 +2,7 @@ import Main from "@/Layouts/Client/Main.jsx";
 import {useForm} from "@inertiajs/react";
 import Button from "@/Components/Utils/Button/Button.jsx";
 import InputError from "@/Components/InputError.jsx";
+import {useMemo} from "react";
 
 export default function Page({data:packageData}) {
     const {data, setData, post, processing, errors} = useForm({
@@ -10,6 +11,13 @@ export default function Page({data:packageData}) {
         reference_name: '',
         reference_phone: ''
     });
+
+    const payment_setting = useMemo(() => {
+        if (packageData.appSetting?.payment_info?.value) {
+            return JSON.parse(packageData.appSetting.payment_info.value);
+        }
+        return {};
+    }, [packageData.appSetting?.payment_info?.value]);
 
 
     const handleFormInput = (e) => {
@@ -20,7 +28,6 @@ export default function Page({data:packageData}) {
             [id]: value
         }))
     }
-
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -41,9 +48,9 @@ export default function Page({data:packageData}) {
 
                     <div className="mb-6 text-gray-700 space-y-2">
                         <p className="text-lg font-semibold">পেমেন্ট তথ্য:</p>
-                        <p>📱 বিকাশ নাম্বার: <span className="font-bold">017XXXXXXXX</span></p>
-                        <p>📱 নগদ নাম্বার: <span className="font-bold">018XXXXXXXX</span></p>
-                        <p>🏦 ব্যাংক একাউন্ট নাম্বার: <span className="font-bold">1234567890</span></p>
+                        <p>📱 বিকাশ নাম্বার: <span className="font-bold">{payment_setting.bkash_number}</span></p>
+                        <p>📱 নগদ নাম্বার: <span className="font-bold">{payment_setting.nagad_number}</span></p>
+                        <p>🏦 ব্যাংক একাউন্ট নাম্বার: <span className="font-bold">{payment_setting.bank_account}</span></p>
                     </div>
 
                     <form onSubmit={handleFormSubmit} className="space-y-4">

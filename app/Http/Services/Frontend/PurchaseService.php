@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Services\Frontend;
+use App\Http\Services\Backend\SettingService;
 use App\Models\Package;
 use App\Models\Purchase;
 use App\Traits\Request;
@@ -10,6 +11,8 @@ class PurchaseService
 {
     use Request,Response;
 
+    public function __construct(private readonly SettingService $settingService){}
+
     /**
      * @param string $packageId
      * @return array
@@ -18,12 +21,17 @@ class PurchaseService
     {
         try {
             $package = Package::find($packageId);
+
             if(!$package){
                 return $this->response()->error('package not found');
             }
 
+            $settingDBQuery = ['key' => 'payment_info', 'graph' => '{key,value}'];
+            $appSetting = $this->settingService->getListData($settingDBQuery);
+
             return $this->response([
                 'package' => $package,
+                'appSetting' => ['payment_info' => $appSetting['data']['settings'][0]]
             ])->success();
         }
         catch (\Exception $e) {

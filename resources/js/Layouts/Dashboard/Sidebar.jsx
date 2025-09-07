@@ -4,7 +4,7 @@ import {useState} from "react";
 import {Link, router, usePage} from "@inertiajs/react";
 import {getQueries} from "@/helpers/helper.js";
 import {TfiLayoutSlider} from "react-icons/tfi";
-import {FaQ} from "react-icons/fa6";
+import {FaGear, FaQ} from "react-icons/fa6";
 import {FiPackage} from "react-icons/fi";
 import {PiHandWithdrawBold} from "react-icons/pi";
 
@@ -44,6 +44,11 @@ const menuItems = [
         label: 'Faq',
         link: 'admin.faq.list',
         icon: <FaQ className={`size-5`} />,
+    },
+    {
+        label: 'App Setting',
+        link: 'admin.setting.list',
+        icon: <FaGear className={`size-5`} />,
     },
 ];
 
