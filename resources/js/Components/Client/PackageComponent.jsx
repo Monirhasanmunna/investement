@@ -60,9 +60,9 @@ export default function PackageComponent({packages}){
                     <div key={idx} className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition h-full flex flex-col justify-between">
                         <div>
                             <h3 className="text-xl font-semibold mb-2">{pkg.name}</h3>
-                            <p className="text-2xl font-bold text-green-600 mb-1">{pkg.price}</p>
+                            <p className="text-2xl font-bold text-green-600 mb-1">{pkg.price.toFixed(2)}</p>
                             <p className="text-gray-600 mb-1 capitalize">
-                                Interest: {pkg.interest}% {pkg.interest_type}
+                                Interest: {pkg.interest.toFixed(2)}% {pkg.interest_type}
                             </p>
                             <p className="text-gray-600 mb-4">Duration: {pkg.duration?.split(' ')[0]}</p>
                         </div>

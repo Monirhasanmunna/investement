@@ -8,9 +8,10 @@ export default function Page({data: settingData}){
 
     const {data, setData, post, processing, errors} = useForm({
         payment_info: {
-            bkash_number : '',
-            nagad_number: '',
-            bank_account: ''
+            bkash_number_1 : '',
+            bkash_number_2 : '',
+            nagad_number_1: '',
+            nagad_number_2: '',
         }
     });
 
@@ -64,16 +65,20 @@ export default function Page({data: settingData}){
                 <div className="w-4/12 p-3">
                     <form onSubmit={handleFormSubmit} className={`w-full space-y-3`}>
                         <div className="form-control">
-                            <label htmlFor="bkash" className={`label`}>Bkash Number</label>
-                            <input type="text" className={`input`} id='bkash_number' name='payment_info' placeholder='Enter Bkash Number' value={data.payment_info.bkash_number} onChange={handleFormInput} />
+                            <label htmlFor="bkash" className={`label`}>Bkash Number 1 (Personal)</label>
+                            <input type="text" className={`input`} id='bkash_number_1' name='payment_info' placeholder='Enter Bkash Number 1' value={data.payment_info.bkash_number_1} onChange={handleFormInput} />
                         </div>
                         <div className="form-control">
-                            <label htmlFor="nagad" className={`label`}>Nagad Number</label>
-                            <input type="text" className={`input`} id='nagad_number' name='payment_info' placeholder='Enter Nagad Number' value={data.payment_info.nagad_number} onChange={handleFormInput} />
+                            <label htmlFor="bkash" className={`label`}>Bkash Number 2</label>
+                            <input type="text" className={`input`} id='bkash_number_2' name='payment_info' placeholder='Enter Bkash Number 2' value={data.payment_info.bkash_number_2} onChange={handleFormInput} />
                         </div>
                         <div className="form-control">
-                            <label htmlFor="bank" className={`label`}>Bank Account Number</label>
-                            <input type="text" className={`input`} id='bank_account' name='payment_info' placeholder='Enter Nagad Number' value={data.payment_info.bank_account} onChange={handleFormInput} />
+                            <label htmlFor="nagad" className={`label`}>Nagad Number 1 (Personal)</label>
+                            <input type="text" className={`input`} id='nagad_number_1' name='payment_info' placeholder='Enter Nagad Number 1' value={data.payment_info.nagad_number_1} onChange={handleFormInput} />
+                        </div>
+                        <div className="form-control">
+                            <label htmlFor="nagad" className={`label`}>Nagad Number 2</label>
+                            <input type="text" className={`input`} id='nagad_number_2' name='payment_info' placeholder='Enter Nagad Number 2' value={data.payment_info.nagad_number_2} onChange={handleFormInput} />
                         </div>
                         <div className="form-control">
                             <Button type={'submit'} buttonText={'Update'} isLoading={processing} />

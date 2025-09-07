@@ -48,9 +48,10 @@ export default function Page({data:packageData}) {
 
                     <div className="mb-6 text-gray-700 space-y-2">
                         <p className="text-lg font-semibold">পেমেন্ট তথ্য:</p>
-                        <p>📱 বিকাশ নাম্বার: <span className="font-bold">{payment_setting.bkash_number}</span></p>
-                        <p>📱 নগদ নাম্বার: <span className="font-bold">{payment_setting.nagad_number}</span></p>
-                        <p>🏦 ব্যাংক একাউন্ট নাম্বার: <span className="font-bold">{payment_setting.bank_account}</span></p>
+                        <p>📱 বিকাশ নাম্বার: <span className="font-bold">{payment_setting.bkash_number_1} (Personal)</span></p>
+                        <p>📱 বিকাশ নাম্বার: <span className="font-bold">{payment_setting.bkash_number_2}</span></p>
+                        <p>📱 নগদ নাম্বার: <span className="font-bold">{payment_setting.nagad_number_1} (Personal)</span></p>
+                        <p>📱 নগদ নাম্বার: <span className="font-bold">{payment_setting.nagad_number_2}</span></p>
                     </div>
 
                     <form onSubmit={handleFormSubmit} className="space-y-4">

@@ -106,7 +106,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                             </div>
                             <div className="form-control">
                                 <label htmlFor="price" className={`label`}>Price <span className={`text-xs text-red-600`}>*</span></label>
-                                <input type="number" id={`price`} value={data.price} onChange={handleTextInput} className={`input`} placeholder={`Enter price`}/>
+                                <input type="number" id={`price`} step="0.01" value={data.price} onChange={handleTextInput} className={`input`} placeholder={`Enter price`}/>
                             </div>
                             <div className="form-control">
                                 <label htmlFor="interest_type" className={`label`}>Interest Type <span className={`text-xs text-red-600`}>*</span></label>
@@ -120,7 +120,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                             </div>
                             <div className="form-control">
                                 <label htmlFor="interest" className={`label`}>Interest <span className={`text-xs text-red-600`}>*</span></label>
-                                <input type="number" id={`interest`} value={data.interest} onChange={handleTextInput} className={`input`} placeholder={`Enter interest`}/>
+                                <input type="number" step="0.01" id={`interest`} value={data.interest} onChange={handleTextInput} className={`input`} placeholder={`Enter interest`}/>
                             </div>
                             <div className="form-control">
                                 <label htmlFor="duration" className={`label`}>Duration <span className={`text-xs text-red-600`}>*</span></label>

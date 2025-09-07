@@ -16,6 +16,7 @@ export default function Page({data: purchaseListData}){
     const [searchText, setSearchText] = useState('')
     const [go, setGo] = useState(false)
 
+    console.log(purchaseListData)
     useEffect(() => {
         setPaginationFromSessionStorage(setPagination, 'client_purchase_pagination', {
             page: purchaseListData?.page, length: purchaseListData?.length, status: purchaseListData.status, searchText: ""
@@ -83,6 +84,9 @@ export default function Page({data: purchaseListData}){
                                 Price
                             </th>
                             <th className="px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
+                                Duration
+                            </th>
+                            <th className="px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                 Status
                             </th>
                         </tr>
@@ -103,6 +107,9 @@ export default function Page({data: purchaseListData}){
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         TK.{purchase.amount}
+                                    </td>
+                                    <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
+                                        {pursePurchaseInfo(purchase.package_info)?.duration.split(' ')[0]}
                                     </td>
                                     <td className="px-4 py-2 capitalize font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         {purchase.status}
