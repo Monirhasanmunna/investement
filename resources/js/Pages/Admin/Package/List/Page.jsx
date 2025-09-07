@@ -66,7 +66,7 @@ export default function Page({data: packageListData}){
     const deleteData = (id) => {
         setAlertData({
             ...alertData,
-            route : `/package/delete/${id}`,
+            route : route('admin.package.delete', id),
             color : 'red',
             method : 'delete',
             text : 'Are you sure you want to delete this ?'

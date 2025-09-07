@@ -84,12 +84,6 @@ export default function Page({data: purchaseListData}){
                 <div className="flex items-center gap-x-6">
                     <h2 className="font-medium text-xl leading-6 text-neutral-700 dark:text-neutral-300">Investment</h2>
                 </div>
-                <button onClick={() => setPurchase(null)} type="button"
-                        className="py-1.5 px-5 inline-flex items-center gap-x-2 text-sm font-medium rounded bg-yellow-400 text-black hover:bg-yellow-500"
-                        aria-haspopup="dialog" aria-expanded="false" aria-controls="purchase-form"
-                        data-hs-overlay="#purchase-form">
-                    Add New
-                </button>
             </div>
 
             <div className="w-full p-5">
@@ -147,9 +141,6 @@ export default function Page({data: purchaseListData}){
                             <th className="px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                 Status
                             </th>
-                            <th className="w-[10%] px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
-                                Action
-                            </th>
                         </tr>
                         </thead>
 
@@ -190,18 +181,6 @@ export default function Page({data: purchaseListData}){
                                                 return <option key={key} value={key}>{statusText}</option>
                                             })}
                                         </select>
-                                    </td>
-                                    <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
-                                        <div className="w-full flex gap-x-6">
-                                            <button className="cursor-pointer text-white border-green-500"
-                                                    onClick={() => editSlider(purchase, fileBase + '/' + purchase.image)}>
-                                                <FaPencil className={`text-blue-400 text-lg`}/>
-                                            </button>
-                                            <button className=" cursor-pointer text-white border-green-500"
-                                                    onClick={() => deleteData(purchase.id)}>
-                                                <FaTrash className={`text-red-400 text-lg`}/>
-                                            </button>
-                                        </div>
                                     </td>
                                 </tr>
                             ))

@@ -67,7 +67,7 @@ export default function Page({data: sliderListData}){
     const deleteData = (id) => {
         setAlertData({
             ...alertData,
-            route : `/slider/delete/${id}`,
+            route : route('admin.slider.delete', id),
             color : 'red',
             method : 'delete',
             text : 'Are you sure you want to delete this ?'
