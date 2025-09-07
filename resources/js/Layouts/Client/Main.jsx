@@ -23,7 +23,7 @@ const Main = ({children}) => {
 
                 {/* Floating WhatsApp Button */}
                 <a
-                    href="https://wa.me/1234567890" // replace with your WhatsApp number (with country code, no + or spaces)
+                    href="https://wa.me/01948960391"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg flex items-center justify-center transition duration-300"
