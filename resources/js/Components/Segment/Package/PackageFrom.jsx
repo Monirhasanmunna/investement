@@ -129,6 +129,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                                     }
                                 </select>
                             </div>
+
                             <div className="form-control">
                                 <label htmlFor="interest" className={`label`}>Interest <span className={`text-xs text-red-600`}>*</span></label>
                                 <input type="number" step="0.01" id={`interest`} value={data.interest} onChange={handleTextInput} className={`input`} placeholder={`Enter interest`}/>

@@ -27,7 +27,7 @@ const Footer = () => {
 
                 {/* Copyright */}
                 <div className="text-sm text-gray-500">
-                    &copy; 2025 All rights reserved by Virtual Softbook
+                    &copy; 2025 All rights reserved by VS
                 </div>
             </div>
         </footer>
