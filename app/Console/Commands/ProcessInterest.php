@@ -49,11 +49,19 @@ class ProcessInterest extends Command
                 $interestRate = $package['interest'] ?? 0;
                 $interestType = $package['interest_type'] ?? 'daily';
 
-                $expiryDate = isset($purchase->package->duration) ? Carbon::parse($purchase->package->duration) : null;
+                $duration = $package['duration_day'] ?? 0;
 
-                if ($expiryDate && now()->gte($expiryDate)) {
+                if ($duration > 0) {
+                    $expiryDate = Carbon::parse($purchase->purchase_at)->addDays($duration);
+
+                    if (now()->greaterThanOrEqualTo($expiryDate)) {
+                        continue;
+                    }
+                }
+                else{
                     continue;
                 }
+
 
                 $lastInterest = $purchase->last_interest_paid ?? $purchase->purchase_at;
                 $due = false;
@@ -65,6 +73,11 @@ class ProcessInterest extends Command
 
                 // For monthly interest: 1 month since last interest
                 if ($interestType === 'monthly' && Carbon::parse($lastInterest)->addMonths(1)->lte(now())) {
+                    $due = true;
+                }
+
+                // For weekly interest: 1 week since last interest
+                if ($interestType === 'weekly' && Carbon::parse($lastInterest)->addWeek()->lte(now())) {
                     $due = true;
                 }
 

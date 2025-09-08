@@ -64,7 +64,7 @@ export default function PackageComponent({packages}){
                             <p className="text-gray-600 mb-1 capitalize">
                                 Interest: {pkg.interest.toFixed(2)}% {pkg.interest_type}
                             </p>
-                            <p className="text-gray-600 mb-4">Duration: {pkg.duration?.split(' ')[0]}</p>
+                            <p className="text-gray-600 mb-4">Duration: {pkg.duration_day + ' Day'}</p>
                         </div>
                         <button
                             type="button"

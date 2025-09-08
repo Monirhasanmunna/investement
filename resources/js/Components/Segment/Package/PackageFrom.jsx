@@ -1,6 +1,6 @@
 import {FaCross} from "react-icons/fa";
 import {RxCross2, RxUpload} from "react-icons/rx";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {useForm, usePage} from "@inertiajs/react";
 import {HSOverlay} from "preline";
 import Button from "@/Components/Utils/Button/Button.jsx";
@@ -12,6 +12,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
         interest_type: 'daily',
         interest: '',
         duration: '',
+        duration_day: '',
     });
 
 
@@ -24,6 +25,7 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                 interest_type: selectPackage.interest_type ?? '',
                 interest: selectPackage.interest ?? '',
                 duration: selectPackage.duration?.split(" ")[0] ?? '',
+                duration_day: selectPackage.duration_day ?? '',
                 id: selectPackage.id ?? ''
             })
         } else {
@@ -47,6 +49,15 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
         }))
     }
 
+    useEffect(() => {
+
+    }, [data.price, data.interest]);
+
+    const calculateInterest = useMemo(() => {
+        const price = Number(data.price) || 0;
+        const rate = Number(data.interest) || 0;
+        return (price * rate) / 100;
+    }, [data.price, data.interest]);
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
@@ -123,8 +134,12 @@ export default function PackageForm({selectPackage, setSelectPackage, interestTy
                                 <input type="number" step="0.01" id={`interest`} value={data.interest} onChange={handleTextInput} className={`input`} placeholder={`Enter interest`}/>
                             </div>
                             <div className="form-control">
-                                <label htmlFor="duration" className={`label`}>Duration <span className={`text-xs text-red-600`}>*</span></label>
-                                <input type="date" id={`duration`} value={data.duration} onChange={handleTextInput} className={`input`} placeholder={`Enter duration`}/>
+                                <label htmlFor="interest" className={`label`}>Interest Amount</label>
+                                <input type="number" step="0.01" disabled={true} value={calculateInterest} className={`input`}/>
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="duration_day" className={`label`}>Duration Day <span className={`text-xs text-red-600`}>*</span></label>
+                                <input type="number" id={`duration_day`} value={data.duration_day} onChange={handleTextInput} className={`input`} placeholder={`Enter duration day`}/>
                             </div>
 
                             <div className="form-control pt-4">

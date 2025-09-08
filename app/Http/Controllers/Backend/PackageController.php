@@ -42,7 +42,7 @@ class PackageController extends Controller
             'price' => 'required',
             'interest_type' => 'required|in:'.implode(',', [INTEREST_TYPE_DAILY, INTEREST_TYPE_WEEKLY, INTEREST_TYPE_MONTHLY]),
             'interest' => 'required',
-            'duration' => 'required',
+            'duration_day' => 'required',
         ]);
 
         $response = $this->handleSession( $this->service->storeData( $request->all()));
@@ -65,7 +65,7 @@ class PackageController extends Controller
             'price'             => 'required',
             'interest_type'     => 'required|in:'.implode(',', [INTEREST_TYPE_DAILY, INTEREST_TYPE_WEEKLY, INTEREST_TYPE_MONTHLY]),
             'interest'          => 'required',
-            'duration'          => 'required',
+            'duration_day'          => 'required',
         ]);
 
 

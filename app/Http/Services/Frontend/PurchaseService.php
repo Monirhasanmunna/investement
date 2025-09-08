@@ -99,7 +99,7 @@ class PurchaseService
             'price'             => $package->price,
             'interest_type'     => $package->interest_type,
             'interest'          => $package->interest,
-            'duration'          => $package->duration,
+            'duration_day'      => $package->duration_day,
         ];
     }
 

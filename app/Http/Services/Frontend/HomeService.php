@@ -31,7 +31,7 @@ class HomeService
         try {
             $packages = Cache::remember('packages', now()->addMinute(10), function () {
                 $packageDBQuery = [
-                    'graph' => '{name,price,interest_type,interest,duration}',
+                    'graph' => '{name,price,interest_type,interest,duration_day}',
                     'status' => STATUS_ACTIVE,
                     'length' => 100
                 ];

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {setPaginationFromSessionStorage} from "@/helpers/helper.js";
+import {convertToLocalDateTime, setPaginationFromSessionStorage} from "@/helpers/helper.js";
 import {router, usePage} from "@inertiajs/react";
 import LengthDropdown from "@/Components/Utils/Pagination/LengthDropdown.jsx";
 import SearchBox from "@/Components/Utils/Pagination/SearchBox.jsx";
@@ -84,6 +84,9 @@ export default function Page({data: purchaseListData}){
                                 Price
                             </th>
                             <th className="px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
+                                Purchase At
+                            </th>
+                            <th className="px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                 Duration
                             </th>
                             <th className="px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
@@ -109,7 +112,10 @@ export default function Page({data: purchaseListData}){
                                         TK.{purchase.amount}
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
-                                        {pursePurchaseInfo(purchase.package_info)?.duration.split(' ')[0]}
+                                        {convertToLocalDateTime(purchase.purchase_at)}
+                                    </td>
+                                    <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
+                                        {pursePurchaseInfo(purchase.package_info)?.duration_day + ' Day'}
                                     </td>
                                     <td className="px-4 py-2 capitalize font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         {purchase.status}

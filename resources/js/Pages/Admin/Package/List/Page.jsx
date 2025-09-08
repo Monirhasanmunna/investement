@@ -140,7 +140,7 @@ export default function Page({data: packageListData}){
                                 Status
                             </th>
                             <th className="px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
-                                Duration
+                                Duration Day
                             </th>
                             <th className="w-[10%] px-4 py-2 text-left font-semibold text-gray-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                 Action
@@ -181,7 +181,7 @@ export default function Page({data: packageListData}){
                                         </select>
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
-                                        {packg.duration?.split(" ")[0] ?? 'N/A'}
+                                        {packg.duration_day + ' Day' ?? 'N/A'}
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         <div className="w-full flex gap-x-6">
