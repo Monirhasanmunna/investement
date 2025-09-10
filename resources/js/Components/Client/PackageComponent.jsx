@@ -18,42 +18,6 @@ export default function PackageComponent({packages}){
     return (
         <section className="py-16">
             <h2 className="text-3xl font-bold text-center mb-10">Our Investment Packages</h2>
-            {/*<Swiper*/}
-            {/*    modules={[Pagination, Navigation, Grid]}*/}
-            {/*    pagination={{ clickable: true }}*/}
-            {/*    navigation*/}
-            {/*    spaceBetween={20}*/}
-            {/*    autoplay={{ delay: 4000 }}*/}
-            {/*    loop*/}
-            {/*    slidesPerView={1}*/}
-            {/*    grid={{ rows: 2, fill: 'row' }}*/}
-            {/*    breakpoints={{*/}
-            {/*        640: { slidesPerView: 2, grid: { rows: 2, fill: 'row' } },*/}
-            {/*        1024: { slidesPerView: 3, grid: { rows: 2, fill: 'row' } }*/}
-            {/*    }}*/}
-            {/*>*/}
-            {/*    {packages.map((pkg, idx) => (*/}
-            {/*        <SwiperSlide key={idx}>*/}
-            {/*            <div className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition h-full flex flex-col justify-between">*/}
-            {/*                <div>*/}
-            {/*                    <h3 className="text-xl font-semibold mb-2">{pkg.name}</h3>*/}
-            {/*                    <p className="text-2xl font-bold text-green-600 mb-1">{pkg.price}</p>*/}
-            {/*                    <p className="text-gray-600 mb-1 capitalize">*/}
-            {/*                        Interest: {pkg.interest}% {pkg.interest_type}*/}
-            {/*                    </p>*/}
-            {/*                    <p className="text-gray-600 mb-4">Duration: {pkg.duration?.split(' ')[0]}</p>*/}
-            {/*                </div>*/}
-            {/*                <button*/}
-            {/*                    type="button"*/}
-            {/*                    onClick={() => handlePurchase(pkg.id)}*/}
-            {/*                    className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 mt-auto"*/}
-            {/*                >*/}
-            {/*                    Purchase Now*/}
-            {/*                </button>*/}
-            {/*            </div>*/}
-            {/*        </SwiperSlide>*/}
-            {/*    ))}*/}
-            {/*</Swiper>*/}
 
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
                 {packages.map((pkg, idx) => (
@@ -62,7 +26,10 @@ export default function PackageComponent({packages}){
                             <h3 className="text-xl font-semibold mb-2">{pkg.name}</h3>
                             <p className="text-2xl font-bold text-green-600 mb-1">{pkg.price.toFixed(2)}</p>
                             <p className="text-gray-600 mb-1 capitalize">
-                                Interest: {pkg.interest.toFixed(2)}% {pkg.interest_type}
+                                Interest: {pkg.interest.toFixed(2)}%
+                            </p>
+                            <p className="text-gray-600 mb-1 capitalize">
+                                Profit: TK.{(( pkg.interest/100) * pkg.price).toFixed(2)} <span className={`capitalize`}>{pkg.interest_type}</span>
                             </p>
                             <p className="text-gray-600 mb-4">Duration: {pkg.duration_day + ' Day'}</p>
                         </div>
