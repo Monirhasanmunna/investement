@@ -5,7 +5,6 @@ import PackageComponent from "@/Components/Client/PackageComponent.jsx";
 import FAQComponent from "@/Components/Client/Home/FAQComponent.jsx";
 import {MdOutlineArrowOutward} from "react-icons/md";
 
-
 const Page = ({data}) => {
     return (
         <Main>
