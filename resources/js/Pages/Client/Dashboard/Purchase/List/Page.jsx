@@ -51,6 +51,9 @@ export default function Page({data: purchaseListData}){
         return JSON.parse(purchaseInfo)
     }
 
+
+    console.log(purchaseListData.purchases)
+
     return (
         <Main>
             <div className="w-full p-5">
@@ -112,7 +115,7 @@ export default function Page({data: purchaseListData}){
                                         TK.{purchase.amount}
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
-                                        {convertToLocalDateTime(purchase.purchase_at)}
+                                        {convertToLocalDateTime(purchase.created_at)}
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         {pursePurchaseInfo(purchase.package_info)?.duration_day + ' Day'}

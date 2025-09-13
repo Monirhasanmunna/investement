@@ -14,7 +14,7 @@ export default function Dashboard({data}) {
                 <div className="grid grid-cols-3 gap-4 md:grid-cols-3">
                     <Link href={route('client.wallet.list')} className="rounded-xl p-4 flex flex-col items-center shadow-md border border-gray-300 bg-[#F6F7E9]">
                         <FaWallet className={`size-8 text-sky-400`} />
-                        <span className="text-sm mt-2">MA Wallet</span>
+                        <span className="text-sm mt-2">Wallet</span>
                     </Link>
                     <Link href={route('client.purchase.list')} className="rounded-xl p-4 flex flex-col items-center shadow-md border border-gray-300 bg-[#F6F7E9]">
                         <FaMoneyCheck className={`size-8 text-sky-400`} />

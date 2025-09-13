@@ -36,6 +36,7 @@ class ProcessInterest extends Command
                 ->whereHas('user', fn ($query) => $query->where('user_type', 'investor'))
                 ->get();
 
+            Log::info($purchases);
             if($purchases->count() <= 0) {
                 throw new \Exception("No active investment purchases");
             }
@@ -52,7 +53,7 @@ class ProcessInterest extends Command
                 $duration = $package['duration_day'] ?? 0;
 
                 if ($duration > 0) {
-                    $expiryDate = Carbon::parse($purchase->purchase_at)->addDays($duration);
+                    $expiryDate = Carbon::parse($purchase->created_at)->addDays($duration);
 
                     if (now()->greaterThanOrEqualTo($expiryDate)) {
                         continue;
@@ -63,7 +64,7 @@ class ProcessInterest extends Command
                 }
 
 
-                $lastInterest = $purchase->last_interest_paid ?? $purchase->purchase_at;
+                $lastInterest = $purchase->last_interest_paid ?? $purchase->created_at;
                 $due = false;
 
                 // For daily interest: 24 hours since last interest
@@ -106,10 +107,11 @@ class ProcessInterest extends Command
             }
 
             DB::commit();
-//            $this->info('Interest processed successfully ✅');
+            $this->info('Interest processed successfully ✅');
             Log::info('Interest processed');
         }
         catch (\Exception $e) {
+            Log::error('Interest processed error');
             DB::rollBack();
             Log::error($e->getMessage());
         }

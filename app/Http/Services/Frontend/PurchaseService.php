@@ -83,6 +83,7 @@ class PurchaseService
             'reference_name'    => $payload['reference_name'],
             'amount'            => $package->price,
             'package_info'      => json_encode( $this->_packageJsonDataFormated($package)),
+            'purchase_at'       => today()
         ];
     }
 
