@@ -103,7 +103,7 @@ export default function Page({data: withdrawListData}){
                             withdrawListData.withdraws.map((withdraw) => (
                                 <tr key={withdraw.id} className={`hover:bg-gray-100 dark:hover:bg-neutral-600`}>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
-                                        {withdraw.user.name}
+                                        {withdraw.user?.name}
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         Tk.{withdraw.amount}
@@ -113,7 +113,7 @@ export default function Page({data: withdrawListData}){
                                     </td>
                                     <td className="px-4 py-2 font-medium text-gray-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-400">
                                         {
-                                            withdraw.user.withdraw_info && (
+                                            withdraw.user?.withdraw_info && (
                                                 <div className="w-full">
                                                     <h6>Number : {JSON.parse(withdraw.user.withdraw_info)?.account_number} <button onClick={() => copyText(JSON.parse(withdraw.user.withdraw_info)?.account_number ?? 'N/A')}><FaRegCopy className={`size-4`} /></button></h6>
                                                     <h6 className={`capitalize`}>Method : {JSON.parse(withdraw.user.withdraw_info)?.method}</h6>
