@@ -89,8 +89,10 @@ class WithdrawService
             DB::beginTransaction();
             $totalAmount = 0;
             foreach ($totalWallet as $wallet) {
-                $wallet->update(['status' => WALLET_STATUS_WITHDRAW]);
-                $totalAmount += $wallet->amount;
+                if(($totalAmount + $wallet->amount) <= 40000){
+                    $wallet->update(['status' => WALLET_STATUS_WITHDRAW]);
+                    $totalAmount += $wallet->amount;
+                }
             }
 
             Withdraw::create([
