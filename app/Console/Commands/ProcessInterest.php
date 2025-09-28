@@ -56,6 +56,9 @@ class ProcessInterest extends Command
                     $expiryDate = Carbon::parse($purchase->created_at)->addDays($duration);
 
                     if (now()->greaterThanOrEqualTo($expiryDate)) {
+                        $purchase->status = 'expired';
+                        $purchase->save();
+
                         continue;
                     }
                 }

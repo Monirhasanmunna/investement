@@ -52,8 +52,6 @@ export default function Page({data: purchaseListData}){
     }
 
 
-    console.log(purchaseListData.purchases)
-
     return (
         <Main>
             <div className="w-full p-5">
